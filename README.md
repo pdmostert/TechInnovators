@@ -4,4 +4,4 @@
 
 
 # Team Members
-- Peter Mostert
+- Peter Mostert (Week 2 Team Lead)
