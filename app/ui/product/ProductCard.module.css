@@ -1,0 +1,82 @@
+/* ===== CARD ===== */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(62, 39, 35, 0.13);
+  transform: translateY(-3px);
+}
+
+/* ===== IMAGE ===== */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--color-secondary-light);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+/* ===== BODY ===== */
+.body {
+  padding: 0.875rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+/* ===== RATING ===== */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.star {
+  color: var(--color-star);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.ratingValue {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ===== PRICE ===== */
+.price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 0.1rem;
+}
