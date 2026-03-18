@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { getServerSession } from "next-auth";
 import SearchBar from "./SearchBar";
 import styles from "./Header.module.css";
+import { authOptions } from "@/app/lib/authOptions";
 
-export default function Header() {
+export default async function Header() {
+  const session = await getServerSession(authOptions);
+  const profileHref = session ? "/profile" : "/auth/login";
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -17,9 +22,9 @@ export default function Header() {
 
         <nav className={styles.actions}>
           <Link
-            href="/profile"
+            href={profileHref}
             className={styles.iconBtn}
-            aria-label="User profile"
+            aria-label={session ? "User profile" : "Sign in"}
           >
             <svg
               viewBox="0 0 24 24"
