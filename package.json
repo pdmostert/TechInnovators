@@ -12,15 +12,17 @@
     "next": "^16.1.7",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "typescript": "^5.9.3",
     "use-debounce": "^10.1.0",
-    "zod": "^4.3.6",
-    "typescript": "^5.9.3"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6"
-  }
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4.2.1"
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
