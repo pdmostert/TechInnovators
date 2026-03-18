@@ -9,6 +9,7 @@
 ## Project Requirements & Scope
 
 ### Core Features
+
 - **Product Catalog:** Display handcrafted items from local artisans
 - **Search Functionality:** Users can search products by name/description
 - **Filtering:** Filter products by category and price range
@@ -18,6 +19,7 @@
 - **Artisan Dashboard:** Tools for artisans to manage their products
 
 ### Technology Stack
+
 - **Frontend:** Next.js 16, React 19, TypeScript
 - **Styling:** Tailwind CSS v4
 - **Development:** ESLint, Node.js/pnpm
@@ -27,6 +29,7 @@
 ### Design Theme
 
 #### Color Palette
+
 - **Primary (Terracotta):** #D4735E - Main brand color
 - **Secondary (Sage Green):** #8B9D83 - Supporting accent
 - **Accent (Warm Beige):** #E8C5A5 - Highlights
@@ -34,17 +37,67 @@
 - **Text (Rich Brown):** #3E2723 - Main text color
 
 #### Typography
+
 - **Display Font:** Playfair Display (headings, titles)
 - **Body Font:** Lato (body text, UI)
 
 #### Design Approach
+
 The design emphasizes warmth, craftsmanship, and sustainability through an earthy color palette that reflects artisan values. The layout prioritizes user experience with clear navigation and product discovery.
 
 ## Team Members (Week 2)
+
 - **Peter Mostert** - Week 2 Team Lead
 - **Steve Kalala** - Team Member
-- **[Your Name]** - Team Member
+- **Sam Daramroei** - Team Member
 
 ## Project Repository
-- **GitHub:** https://github.com/pdmostert/TechInnovators
-- **Project Board:** https://github.com/users/pdmostert/projects/3
+
+- **GitHub:** [https://github.com/pdmostert/TechInnovators](https://github.com/pdmostert/TechInnovators)
+- **Project Board:** [https://github.com/users/pdmostert/projects/3](https://github.com/users/pdmostert/projects/3)
+
+## Local Development Setup
+
+### Prerequisites
+
+- Node.js 22+
+- pnpm 9+
+
+### Install and Run
+
+```bash
+pnpm install
+pnpm dev
+```
+
+### Quality Gates
+
+```bash
+pnpm lint
+pnpm exec tsc --noEmit
+pnpm build
+```
+
+## Professional Folder Structure
+
+```text
+src/
+  app/
+    lib/        # shared data and application helpers
+    ui/         # reusable UI components grouped by feature
+      filters/
+      header/
+      product/
+    page.tsx    # home route
+    layout.tsx  # app layout and metadata
+    globals.css # global styles and tokens
+public/         # static assets used by the app
+```
+
+## Week 2 Deliverable Alignment
+
+- Project summary and scope documented in this README.
+- Team members listed for the current week.
+- Repository URL and project board URL included.
+- Theme evidence documented with color palette and typography.
+- Work item planning tracked on the project board with backlog issues and acceptance criteria.
