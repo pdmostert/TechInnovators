@@ -4,7 +4,7 @@
 
 **Handcrafted Haven** is a full-stack e-commerce web application designed to support local artisans and promote sustainable consumption. The platform connects artisan creators with consumers seeking unique, handcrafted items. Users can browse products by category, search for specific items, and filter results by price range.
 
-**Purpose:** Build a comprehensive web application using a modern full technology stack (Next.js, React, TypeScript, Tailwind CSS) while practicing effective group collaboration and software development workflows.
+**Purpose:** Build a comprehensive web application using a modern full technology stack (Next.js, React, TypeScript, CSS Modules) while practicing effective group collaboration and software development workflows.
 
 ## Project Requirements & Scope
 
@@ -21,7 +21,7 @@
 ### Technology Stack
 
 - **Frontend:** Next.js 16, React 19, TypeScript
-- **Styling:** Tailwind CSS v4
+- **Styling:** CSS Modules + global CSS variables
 - **Development:** ESLint, Node.js/pnpm
 - **Deployment:** Cloud-hosted (to be determined)
 - **Version Control:** Git & GitHub with collaborative workflow
