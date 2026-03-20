@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/lib/authOptions";
 import SignOutButton from "@/app/ui/header/SignOutButton";
+import styles from "./Profile.module.css";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -12,23 +13,40 @@ export default async function ProfilePage() {
   }
 
   return (
-    <main style={{ maxWidth: 720, margin: "3rem auto", padding: "0 1rem" }}>
-      <h1 style={{ marginBottom: "0.75rem" }}>My Profile</h1>
-      <p style={{ marginBottom: "0.25rem" }}>
-        Signed in as <strong>{session.user.email}</strong>
-      </p>
-      <p style={{ marginBottom: "1rem" }}>
-        Role: <strong>{session.user.role ?? "buyer"}</strong>
-      </p>
+    <main className={styles.container}>
+      <div className={styles.card}>
+        <div className={styles.banner}></div>
+        <div className={styles.cardBody}>
+          <div className={styles.avatarWrapper}>
+            <div className={styles.avatar}>
+               {session.user.email?.charAt(0).toUpperCase() || "?"}
+            </div>
+          </div>
+          <h1 className={styles.title}>My Profile</h1>
+          <p className={styles.email}>{session.user.email}</p>
+          
+          <div className={styles.roleBox}>
+            <div>
+              <p className={styles.roleLabel}>Account Role</p>
+              <p className={styles.roleValue}>{session.user.role ?? "buyer"}</p>
+            </div>
+            <div className={styles.badge}>
+              Active Status
+            </div>
+          </div>
 
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-        <Link href="/" style={{ color: "#D4735E" }}>
-          Back to home
-        </Link>
-        <Link href="/dashboard" style={{ color: "#D4735E" }}>
-          Open dashboard
-        </Link>
-        <SignOutButton />
+          <div className={styles.actions}>
+            <Link href="/" className={styles.btnSecondary}>
+              Back to Home
+            </Link>
+            <Link href="/dashboard" className={styles.btnPrimary}>
+              Open Dashboard
+            </Link>
+            <div className={styles.signOutWrapper}>
+               <SignOutButton />
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
