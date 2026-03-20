@@ -8,33 +8,41 @@
 
 :root {
   /* === YOUR BRAND COLORS === */
-  --color-primary:    #D4735E;   /* Terracotta */
-  --color-secondary:  #8B9D83;   /* Sage Green */
-  --color-background: #FFF9F5;   /* Soft Cream */
-  --color-accent:     #E8C5A5;   /* Warm Beige */
-  --color-text:       #3E2723;   /* Rich Brown */
+  --color-primary: #D4735E;
+  /* Terracotta */
+  --color-secondary: #8B9D83;
+  /* Sage Green */
+  --color-background: #FFF9F5;
+  /* Soft Cream */
+  --color-accent: #E8C5A5;
+  /* Warm Beige */
+  --color-text: #3E2723;
+  /* Rich Brown */
 
   /* === DERIVED COLORS (tints of your palette) === */
-  --color-primary-light:    #F2D0C8;
-  --color-secondary-light:  #D4DDCF;
-  --color-text-muted:       #7A5C58;
-  --color-border:           #E8DDD8;
-  --color-card-bg:          #FFFFFF;
-  --color-star:             #D4735E;   /* stars use primary */
+  --color-primary-light: #F2D0C8;
+  --color-secondary-light: #D4DDCF;
+  --color-text-muted: #7A5C58;
+  --color-border: #E8DDD8;
+  --color-card-bg: #FFFFFF;
+  --color-star: #D4735E;
+  /* stars use primary */
 
   /* === TYPOGRAPHY === */
   --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body:    'Lato', system-ui, sans-serif;
+  --font-body: 'Lato', system-ui, sans-serif;
 
   /* === SPACING & SHAPE === */
-  --radius-sm:  6px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
   --shadow-card: 0 1px 4px rgba(62, 39, 35, 0.08);
 }
 
 /* === RESET & BASE === */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
