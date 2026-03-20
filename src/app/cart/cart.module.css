@@ -1,0 +1,76 @@
+.container {
+    max-width: 720px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    background-color: #FFF9F5;
+    color: #3E2723;
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+.empty a {
+    color: #D4735E;
+    text-decoration: none;
+}
+
+.list {
+    display: grid;
+    gap: 1rem;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E8C5A5;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.info strong {
+    display: block;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button {
+    border: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #3E2723;
+    color: white;
+}
+
+.removeButton {
+    background-color: #D4735E;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.summary {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #8B9D83;
+    border-radius: 10px;
+    color: white;
+}
+
+.checkoutButton {
+    margin-top: 1rem;
+    background-color: #D4735E;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
