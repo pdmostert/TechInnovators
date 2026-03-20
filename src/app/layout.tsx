@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/app/ui/header/Header";
+import { CartProvider } from "@/context/CartContext";
+import { Toaster } from "react-hot-toast"; // import toaster
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
@@ -16,8 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        {children}
+        <CartProvider>
+          <Header />
+          {children}
+          <Toaster position="top-right" /> {/* toast notifications */}
+        </CartProvider>
       </body>
     </html>
   );

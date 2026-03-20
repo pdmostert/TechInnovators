@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/app/lib/data";
 import styles from "./ProductCard.module.css";
+import { useCart } from "@/context/CartContext";
+import toast from "react-hot-toast";
 
 function StarRating({
   rating,
@@ -22,6 +26,14 @@ function StarRating({
 }
 
 export default function ProductCard({ product }: { product: Product }) {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevent navigating to product page
+    addToCart({ id: product.id, name: product.name, price: product.price });
+    toast.success(`${product.name} added to cart!`);
+  };
+
   return (
     <Link href={`/product/${product.id}`} className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -37,6 +49,12 @@ export default function ProductCard({ product }: { product: Product }) {
         <h3 className={styles.name}>{product.name}</h3>
         <StarRating rating={product.rating} reviewCount={product.reviewCount} />
         <p className={styles.price}>${product.price}</p>
+        <button
+          className={styles.addToCartButton}
+          onClick={handleAddToCart}
+        >
+          Add to Cart
+        </button>
       </div>
     </Link>
   );
