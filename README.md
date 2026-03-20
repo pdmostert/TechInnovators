@@ -50,6 +50,7 @@ The design emphasizes warmth, craftsmanship, and sustainability through an earth
 - **Peter Mostert** - Week 2 Team Lead
 - **Steve Kalala** - Team Member
 - **Sam Daramroei** - Team Member
+- **Christian Uche** - Team Member
 
 ## Project Repository
 
