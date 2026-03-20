@@ -142,3 +142,23 @@ export const products: Product[] = [
         image: 'https://picsum.photos/seed/wicker12/400/320',
     },
 ];
+
+export type Seller = {
+    id: string;
+    name: string;
+    avatar: string;
+    bio: string;
+    rating: number;
+    reviewCount: number;
+    joinedDate: string;
+};
+
+export const mockSeller: Seller = {
+    id: 's1',
+    name: 'Jane Doe',
+    avatar: 'https://picsum.photos/seed/jane/200/200',
+    bio: "Hello, I'm Jane! I've been crafting unique handmade pieces for over 10 years. My passion is working with natural materials to bring a touch of nature into your home. Every item is thoughtfully designed and created with love in my small studio.",
+    rating: 4.9,
+    reviewCount: 128,
+    joinedDate: '2019',
+};
