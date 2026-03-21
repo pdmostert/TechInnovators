@@ -6,6 +6,12 @@ export type PriceRangeOption = {
     max: number | null; // null = no upper bound
 };
 
+export type Seller = {
+    id: string;
+    name: string;
+    location: string;
+};
+
 export type Product = {
     id: string;
     name: string;
@@ -14,6 +20,8 @@ export type Product = {
     reviewCount: number;
     category: Exclude<Category, 'All'>;
     image: string;
+    description: string;
+    sellerId: string;
 };
 
 export const categories: Category[] = [
@@ -32,6 +40,13 @@ export const priceRanges: PriceRangeOption[] = [
     { label: 'Over $100', min: 100, max: null },
 ];
 
+export const sellers: Seller[] = [
+    { id: 'seller-1', name: 'Emma Ceramics', location: 'Portland, Oregon' },
+    { id: 'seller-2', name: 'Oak & Vine', location: 'Austin, Texas' },
+    { id: 'seller-3', name: 'Silver & Stone', location: 'Seattle, Washington' },
+    { id: 'seller-4', name: 'Thread & Loom', location: 'Denver, Colorado' },
+];
+
 export const products: Product[] = [
     {
         id: '1',
@@ -41,6 +56,8 @@ export const products: Product[] = [
         reviewCount: 24,
         category: 'Pottery',
         image: 'https://picsum.photos/seed/bowl1/400/320',
+        description: 'A beautiful handcrafted ceramic bowl with a soft cream glaze. Perfect for serving salads or as a decorative piece.',
+        sellerId: 'seller-1',
     },
     {
         id: '2',
@@ -50,6 +67,8 @@ export const products: Product[] = [
         reviewCount: 18,
         category: 'Textiles',
         image: 'https://picsum.photos/seed/textile2/400/320',
+        description: 'A stunning hand-woven wall hanging made from natural cotton and wool, featuring earthy tones and intricate patterns.',
+        sellerId: 'seller-4',
     },
     {
         id: '3',
@@ -59,6 +78,8 @@ export const products: Product[] = [
         reviewCount: 42,
         category: 'Jewelry',
         image: 'https://picsum.photos/seed/jewel3/400/320',
+        description: 'Delicate hand-formed copper wire earrings with a hammered texture. Lightweight and hypoallergenic, ideal for everyday wear.',
+        sellerId: 'seller-3',
     },
     {
         id: '4',
@@ -68,6 +89,8 @@ export const products: Product[] = [
         reviewCount: 31,
         category: 'Woodwork',
         image: 'https://picsum.photos/seed/wood4/400/320',
+        description: 'A rustic serving board hand-cut from reclaimed walnut wood. Finished with food-safe oil for a warm, natural look.',
+        sellerId: 'seller-2',
     },
     {
         id: '5',
@@ -77,6 +100,8 @@ export const products: Product[] = [
         reviewCount: 29,
         category: 'Pottery',
         image: 'https://picsum.photos/seed/mug5/400/320',
+        description: 'A set of two wheel-thrown stoneware mugs with a rich chocolate glaze. Each piece is unique with subtle variations from the kiln.',
+        sellerId: 'seller-1',
     },
     {
         id: '6',
@@ -86,6 +111,8 @@ export const products: Product[] = [
         reviewCount: 36,
         category: 'Textiles',
         image: 'https://picsum.photos/seed/plant6/400/320',
+        description: 'Hand-knotted macramé plant hanger using 100% natural cotton rope. Fits pots up to 8 inches in diameter.',
+        sellerId: 'seller-4',
     },
     {
         id: '7',
@@ -95,6 +122,8 @@ export const products: Product[] = [
         reviewCount: 15,
         category: 'Jewelry',
         image: 'https://picsum.photos/seed/pendant7/400/320',
+        description: 'A sterling silver pendant shaped from a real pressed leaf. Each necklace captures nature\'s organic detail in lasting metal.',
+        sellerId: 'seller-3',
     },
     {
         id: '8',
@@ -104,6 +133,8 @@ export const products: Product[] = [
         reviewCount: 22,
         category: 'Pottery',
         image: 'https://picsum.photos/seed/vase8/400/320',
+        description: 'A tall earthenware vase hand-painted with botanical motifs in muted sage and terracotta. Waterproof interior glaze included.',
+        sellerId: 'seller-1',
     },
     {
         id: '9',
@@ -113,6 +144,8 @@ export const products: Product[] = [
         reviewCount: 19,
         category: 'Textiles',
         image: 'https://picsum.photos/seed/linen9/400/320',
+        description: 'A stonewashed linen table runner in natural oatmeal with hand-stitched fringe ends. Elegant for everyday dining or special occasions.',
+        sellerId: 'seller-4',
     },
     {
         id: '10',
@@ -122,6 +155,8 @@ export const products: Product[] = [
         reviewCount: 11,
         category: 'Woodwork',
         image: 'https://picsum.photos/seed/oak10/400/320',
+        description: 'A large hand-carved oak bowl with a smooth interior and raw exterior edge. A statement piece for any home.',
+        sellerId: 'seller-2',
     },
     {
         id: '11',
@@ -131,6 +166,8 @@ export const products: Product[] = [
         reviewCount: 33,
         category: 'Jewelry',
         image: 'https://picsum.photos/seed/bead11/400/320',
+        description: 'A set of three stretch bracelets made with semi-precious stones including amethyst, rose quartz, and aventurine.',
+        sellerId: 'seller-3',
     },
     {
         id: '12',
@@ -140,5 +177,17 @@ export const products: Product[] = [
         reviewCount: 27,
         category: 'Woodwork',
         image: 'https://picsum.photos/seed/wicker12/400/320',
+        description: 'A hand-woven wicker basket with sturdy handles, perfect for blankets, toys, or pantry storage. Natural and sustainably sourced.',
+        sellerId: 'seller-2',
     },
 ];
+
+// ── Helper functions ──────────────────────────────────────────────────────────
+
+export function getProductById(id: string): Product | undefined {
+    return products.find((p) => p.id === id);
+}
+
+export function getSellerById(id: string): Seller | undefined {
+    return sellers.find((s) => s.id === id);
+}
