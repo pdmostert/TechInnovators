@@ -1,0 +1,237 @@
+/* ===== PAGE WRAPPER ===== */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ===== BACK LINK ===== */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.15s;
+}
+
+.backLink:hover {
+  color: var(--color-primary);
+}
+
+.backLink svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== PAGE HEADING ===== */
+.heading {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* ===== CARD ===== */
+.card {
+  background-color: var(--color-card-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-card);
+}
+
+/* ===== FORM FIELDS ===== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.required {
+  color: var(--color-primary);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  outline: none;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ===== PRICE PREFIX INPUT ===== */
+.inputPrefix {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputPrefix .input {
+  padding-left: 2rem;
+}
+
+.prefix {
+  position: absolute;
+  left: 0.875rem;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ===== SELECT ===== */
+.selectWrapper {
+  position: relative;
+}
+
+.select {
+  appearance: none;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.selectChevron {
+  position: absolute;
+  right: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* ===== HINT TEXT ===== */
+.hint {
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  line-height: 1.5;
+}
+
+/* ===== IMAGE PREVIEW ===== */
+.imagePreview {
+  margin-top: 0.5rem;
+}
+
+.previewLabel {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.previewWrapper {
+  position: relative;
+  width: 200px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-secondary-light);
+}
+
+.previewImage {
+  object-fit: cover;
+}
+
+/* ===== FORM ACTIONS ===== */
+.formActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.cancelBtn {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.cancelBtn:hover {
+  border-color: var(--color-text-muted);
+  color: var(--color-text);
+}
+
+.saveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background-color: #c0604d;
+}
+
+.saveBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.saveBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.saveBtn svg {
+  width: 15px;
+  height: 15px;
+}
