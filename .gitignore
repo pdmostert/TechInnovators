@@ -50,3 +50,5 @@ next-env.d.ts
 .chat-history/
 chat_sessions/
 WEEK3_PRISMA_BOOTSTRAP_GUIDE.md
+
+/src/generated/prisma

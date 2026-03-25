@@ -1,51 +1,56 @@
 import { Suspense } from "react";
-import { products, priceRanges } from "@/app/lib/data";
+import { priceRanges } from "@/app/lib/data";
+import { prisma } from "@/app/lib/prisma";
 import FilterSidebar from "@/app/ui/filters/FilterSidebar";
 import ProductGrid from "@/app/ui/product/ProductGrid";
 import styles from "./page.module.css";
 
-type SearchParams = Promise<{
-  q?: string;
-  category?: string;
-  price?: string;
-}>;
+type SearchParams = Promise<{ q?: string; category?: string; price?: string }>;
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default async function Home({ searchParams }: { searchParams: SearchParams }) {
   const { q, category, price } = await searchParams;
 
-  let filtered = products;
+  const range = price && price !== "All Prices"
+    ? priceRanges.find((r) => r.label === price)
+    : null;
 
-  if (q) {
-    const lower = q.toLowerCase();
-    filtered = filtered.filter((p) => p.name.toLowerCase().includes(lower));
-  }
+  const dbProducts = await prisma.product.findMany({
+    where: {
+      isActive: true,
+      ...(q && { name: { contains: q, mode: "insensitive" } }),
+      ...(category && category !== "All" && { category: { name: category } }),
+      ...(range && {
+        price: {
+          gte: range.min,
+          ...(range.max !== null && { lte: range.max }),
+        },
+      }),
+    },
+    include: {
+      category: true,
+      reviews: { select: { rating: true } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
 
-  if (category && category !== "All") {
-    filtered = filtered.filter((p) => p.category === category);
-  }
-
-  if (price && price !== "All Prices") {
-    const range = priceRanges.find((r) => r.label === price);
-    if (range) {
-      filtered = filtered.filter((p) => {
-        if (range.max === null) return p.price >= range.min;
-        return p.price >= range.min && p.price <= range.max;
-      });
-    }
-  }
+  const products = dbProducts.map((p) => ({
+    id: p.id,
+    name: p.name,
+    imageUrl: p.imageUrl,
+    price: Number(p.price),
+    category: p.category.name,
+    reviewCount: p.reviews.length,
+    avgRating:
+      p.reviews.length > 0
+        ? p.reviews.reduce((sum, r) => sum + r.rating, 0) / p.reviews.length
+        : 0,
+  }));
 
   return (
     <main>
-      {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroInner}>
-          <h1 className={styles.heroTitle}>
-            Discover Unique Handcrafted Treasures
-          </h1>
+          <h1 className={styles.heroTitle}>Discover Unique Handcrafted Treasures</h1>
           <p className={styles.heroSubtitle}>
             Supporting local artisans and promoting sustainable consumption,
             <br />
@@ -53,13 +58,11 @@ export default async function Home({
           </p>
         </div>
       </section>
-
-      {/* Content */}
       <div className={styles.container}>
         <Suspense>
           <FilterSidebar />
         </Suspense>
-        <ProductGrid products={filtered} />
+        <ProductGrid products={products} />
       </div>
     </main>
   );

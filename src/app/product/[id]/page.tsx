@@ -5,34 +5,44 @@ import Image from "next/image";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
-import { getProductById, getSellerById } from "@/app/lib/data";
+import { prisma } from "@/app/lib/prisma";
 import styles from "./page.module.css";
 
 type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const product = getProductById(id);
-  if (!product) {
-    return { title: "Product Not Found | Handcrafted Haven" };
-  }
+  const product = await prisma.product.findUnique({
+    where: { id },
+    select: { name: true, description: true, imageUrl: true },
+  });
+  if (!product) return { title: "Product Not Found | Handcrafted Haven" };
   return {
     title: `${product.name} | Handcrafted Haven`,
     description: product.description,
     openGraph: {
       title: product.name,
       description: product.description,
-      images: [{ url: product.image }],
+      images: [{ url: product.imageUrl }],
     },
   };
 }
 
 // ── Inner async component so Suspense can stream it ────────────────────────
 async function ProductDetailContent({ id }: { id: string }) {
-  const product = getProductById(id);
+  const product = await prisma.product.findUnique({
+    where: { id },
+    include: {
+      category: true,
+      seller: { include: { sellerProfile: true } },
+      reviews: { select: { rating: true } },
+    },
+  });
   if (!product) notFound();
-
-  const seller = getSellerById(product.sellerId);
+  const avgRating =
+    product.reviews.length > 0
+      ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
+      : 0;
   const session = await getServerSession(authOptions);
   const canEdit = session?.user?.role === "seller";
 
@@ -42,7 +52,7 @@ async function ProductDetailContent({ id }: { id: string }) {
       <nav className={styles.breadcrumb} aria-label="Breadcrumb">
         <Link href="/">Home</Link>
         <span aria-hidden="true">/</span>
-        <Link href={`/?category=${product.category}`}>{product.category}</Link>
+        <Link href={`/?category=${product.category.name}`}>{product.category.name}</Link>
         <span aria-hidden="true">/</span>
         <span aria-current="page">{product.name}</span>
       </nav>
@@ -52,7 +62,7 @@ async function ProductDetailContent({ id }: { id: string }) {
         {/* Left – image */}
         <div className={styles.imageWrapper}>
           <Image
-            src={product.image}
+            src={product.imageUrl}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -93,15 +103,15 @@ async function ProductDetailContent({ id }: { id: string }) {
               ★
             </span>
             <span className={styles.ratingValue}>
-              {product.rating.toFixed(1)}
+              {avgRating.toFixed(1)}
             </span>
             <span className={styles.reviewCount}>
-              ({product.reviewCount} reviews)
+              ({product.reviews.length} reviews)
             </span>
           </div>
 
           {/* Price */}
-          <p className={styles.price}>${product.price}</p>
+          <p className={styles.price}>${product.price.toNumber().toFixed(2)}</p>
 
           {/* Description */}
           <div className={styles.section}>
@@ -112,7 +122,7 @@ async function ProductDetailContent({ id }: { id: string }) {
           {/* Category */}
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Category</h2>
-            <span className={styles.badge}>{product.category}</span>
+            <span className={styles.badge}>{product.category.name}</span>
           </div>
 
           <hr className={styles.divider} />
@@ -120,14 +130,14 @@ async function ProductDetailContent({ id }: { id: string }) {
           {/* Seller */}
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Sold by</h2>
-            {seller && (
+            {product.seller && (
               <div className={styles.sellerCard}>
                 <div className={styles.sellerAvatar} aria-hidden="true">
-                  {seller.name.charAt(0)}
+                  {product.seller.name.charAt(0)}
                 </div>
                 <div>
-                  <p className={styles.sellerName}>{seller.name}</p>
-                  <p className={styles.sellerLocation}>{seller.location}</p>
+                  <p className={styles.sellerName}>{product.seller.name}</p>
+                  <p className={styles.sellerLocation}>{product.seller.sellerProfile?.location}</p>
                 </div>
               </div>
             )}
