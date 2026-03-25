@@ -49,3 +49,4 @@ next-env.d.ts
 *.chat
 .chat-history/
 chat_sessions/
+WEEK3_PRISMA_BOOTSTRAP_GUIDE.md
