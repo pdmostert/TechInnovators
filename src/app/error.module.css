@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--color-background);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.message {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.retryButton, .homeButton {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.retryButton {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.retryButton:hover {
+  background-color: var(--color-text-muted);
+  transform: translateY(-2px);
+}
+
+.homeButton {
+  background-color: var(--color-secondary);
+  color: var(--color-background);
+}
+
+.homeButton:hover {
+  background-color: var(--color-text-muted);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .message {
+    font-size: 1rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+}
