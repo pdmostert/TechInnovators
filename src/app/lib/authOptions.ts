@@ -1,6 +1,8 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
+import bcrypt from "bcryptjs";
+import { prisma } from "./prisma";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -9,22 +11,22 @@ const loginSchema = z.object({
 
 // Temporary in-memory users for Week 3 auth/routing implementation.
 // This will be replaced by Prisma-backed user queries in the data lane.
-const demoUsers = [
-  {
-    id: "seller-1",
-    name: "Seller Demo",
-    email: "seller@handcraftedhaven.dev",
-    password: "Password123!",
-    role: "seller",
-  },
-  {
-    id: "buyer-1",
-    name: "Buyer Demo",
-    email: "buyer@handcraftedhaven.dev",
-    password: "Password123!",
-    role: "buyer",
-  },
-] as const;
+// const demoUsers = [
+//   {
+//     id: "seller-1",
+//     name: "Seller Demo",
+//     email: "seller@handcraftedhaven.dev",
+//     password: "Password123!",
+//     role: "seller",
+//   },
+//   {
+//     id: "buyer-1",
+//     name: "Buyer Demo",
+//     email: "buyer@handcraftedhaven.dev",
+//     password: "Password123!",
+//     role: "buyer",
+//   },
+// ] as const;
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -39,24 +41,21 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const parsed = loginSchema.safeParse(credentials);
-        if (!parsed.success) {
-          return null;
-        }
+        if (!parsed.success) return null;
 
-        const user = demoUsers.find(
-          (u) =>
-            u.email.toLowerCase() === parsed.data.email.toLowerCase() &&
-            u.password === parsed.data.password,
-        );
+        const user = await prisma.user.findUnique({
+          where: { email: parsed.data.email.toLowerCase() },
+        });
+        if (!user) return null;
 
-        if (!user) {
-          return null;
-        }
+        const valid = await bcrypt.compare(parsed.data.password, user.passwordHash);
+        if (!valid) return null;
 
         return {
           id: user.id,
           name: user.name,
           email: user.email,
+          role: user.role.toLowerCase() as "buyer" | "seller",
         };
       },
     }),
@@ -67,16 +66,13 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const matched = demoUsers.find((u) => u.email === user.email);
-        if (matched) {
-          token.role = matched.role;
-        }
+        token.role = (user as { role?: "buyer" | "seller" }).role;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.role = token.role as "buyer" | "seller" | undefined;
+        session.user.role = token.role;
       }
       return session;
     },

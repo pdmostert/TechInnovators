@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
-import { getProductById, categories } from "@/app/lib/data";
+import { prisma } from "@/app/lib/prisma";
 import EditProductForm from "./EditProductForm";
 import styles from "./page.module.css";
 
@@ -11,7 +11,7 @@ type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const product = getProductById(id);
+  const product = await prisma.product.findUnique({ where: { id }, select: { name: true } });
   if (!product) return { title: "Product Not Found | Handcrafted Haven" };
   return {
     title: `Edit ${product.name} | Handcrafted Haven`,
@@ -26,7 +26,10 @@ export default async function ProductEditPage({ params }: Props) {
     redirect("/auth/login");
   }
 
-  const product = getProductById(id);
+  const [product, dbCategories] = await Promise.all([
+    prisma.product.findUnique({ where: { id }, include: { category: true } }),
+    prisma.category.findMany({ orderBy: { name: "asc" } }),
+  ]);
   if (!product) notFound();
 
   return (
@@ -54,12 +57,12 @@ export default async function ProductEditPage({ params }: Props) {
           product={{
             id: product.id,
             name: product.name,
-            price: product.price,
-            category: product.category,
+            price: Number(product.price),
+            category: product.category.name as Exclude<import("@/app/lib/data").Category, "All">,
             description: product.description,
-            image: product.image,
+            image: product.imageUrl,
           }}
-          categories={categories.filter((c) => c !== "All")}
+          categories={dbCategories.map((c) => c.name as Exclude<import("@/app/lib/data").Category, "All">)}
         />
       </div>
     </main>

@@ -85,7 +85,7 @@ export default function LoginForm({ callbackUrl }: LoginFormProps) {
 
       <div style={{ marginTop: "1.5rem", fontSize: "0.95rem" }}>
         <p style={{ fontWeight: 600 }}>Demo accounts</p>
-        <p>Seller: seller@handcraftedhaven.dev / Password123!</p>
+        <p>Seller: emma@handcraftedhaven.dev / Password123!</p>
         <p>Buyer: buyer@handcraftedhaven.dev / Password123!</p>
       </div>
 
