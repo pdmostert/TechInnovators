@@ -9,8 +9,8 @@ export default function NotFound() {
         <Image
           src="/404-flamingos.png"
           alt="404 - Flamingos"
-          width={800}
-          height={450}
+          width={650}
+          height={350}
           className={styles.image}
           priority
         />

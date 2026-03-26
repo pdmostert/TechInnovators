@@ -30,8 +30,13 @@ export default function ProductCard({ product }: { product: ProductListItem }) {
   const { addToCart } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    addToCart({ id: product.id, name: product.name, price: product.price });
+    e.preventDefault(); // Prevent navigating to product page
+    addToCart({ 
+      id: product.id, 
+      name: product.name, 
+      price: product.price,
+      image: product.image 
+    });
     toast.success(`${product.name} added to cart!`);
   };
 
