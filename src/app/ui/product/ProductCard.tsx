@@ -35,7 +35,7 @@ export default function ProductCard({ product }: { product: ProductListItem }) {
       id: product.id, 
       name: product.name, 
       price: product.price,
-      image: product.image 
+      image: product.imageUrl 
     });
     toast.success(`${product.name} added to cart!`);
   };

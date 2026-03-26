@@ -11,7 +11,7 @@ type LoginFormProps = {
 
 export default function LoginForm({ callbackUrl }: LoginFormProps) {
   const router = useRouter();
-  const [email, setEmail] = useState("seller@handcraftedhaven.dev");
+  const [email, setEmail] = useState("emma@handcraftedhaven.dev");
   const [password, setPassword] = useState("Password123!");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);

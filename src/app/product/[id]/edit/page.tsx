@@ -62,7 +62,7 @@ export default async function ProductEditPage({ params }: Props) {
             description: product.description,
             image: product.imageUrl,
           }}
-          categories={dbCategories.map((c) => c.name as Exclude<import("@/app/lib/data").Category, "All">)}
+          categories={dbCategories.map((c: { name: string }) => c.name as Exclude<import("@/app/lib/data").Category, "All">)}
         />
       </div>
     </main>
