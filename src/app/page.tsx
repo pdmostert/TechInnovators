@@ -33,7 +33,7 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
     orderBy: { createdAt: "desc" },
   });
 
-  const products = dbProducts.map((p) => ({
+  const products = dbProducts.map((p: any) => ({
     id: p.id,
     name: p.name,
     imageUrl: p.imageUrl,
@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
     reviewCount: p.reviews.length,
     avgRating:
       p.reviews.length > 0
-        ? p.reviews.reduce((sum, r) => sum + r.rating, 0) / p.reviews.length
+        ? p.reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / p.reviews.length
         : 0,
   }));
 

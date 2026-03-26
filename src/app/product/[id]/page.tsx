@@ -41,7 +41,7 @@ async function ProductDetailContent({ id }: { id: string }) {
   if (!product) notFound();
   const avgRating =
     product.reviews.length > 0
-      ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
+      ? product.reviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0) / product.reviews.length
       : 0;
   const session = await getServerSession(authOptions);
   const canEdit = session?.user?.role === "seller";
