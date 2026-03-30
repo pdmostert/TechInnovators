@@ -1,25 +1,38 @@
+/* ===== CONTAINER ===== */
 .container {
     max-width: 720px;
     margin: 3rem auto;
     padding: 0 1rem;
     background-color: #FFF9F5;
     color: #3E2723;
+    border-radius: 12px;
 }
 
+/* ===== TITLE ===== */
 .title {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 600;
 }
 
+/* ===== EMPTY CART MESSAGE ===== */
 .empty a {
     color: #D4735E;
     text-decoration: none;
+    font-weight: 500;
 }
 
+.empty a:hover {
+    text-decoration: underline;
+}
+
+/* ===== CART LIST ===== */
 .list {
     display: grid;
     gap: 1rem;
 }
 
+/* ===== CART ITEM ===== */
 .item {
     display: flex;
     justify-content: space-between;
@@ -27,16 +40,14 @@
     background-color: #E8C5A5;
     padding: 1rem;
     border-radius: 10px;
+    transition: transform 0.2s;
 }
 
-.info {
-    flex-grow: 1;
+.item:hover {
+    transform: translateY(-2px);
 }
 
-.info strong {
-    display: block;
-}
-
+/* ===== IMAGE ===== */
 .imageWrapper {
     width: 60px;
     height: 60px;
@@ -52,10 +63,22 @@
     object-fit: cover;
 }
 
+/* ===== INFO ===== */
+.info {
+    flex-grow: 1;
+}
+
+.info strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+/* ===== QUANTITY CONTROLS ===== */
 .quantity {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .button {
@@ -65,31 +88,95 @@
     cursor: pointer;
     background-color: #3E2723;
     color: white;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
+.button:hover {
+    background-color: #5b3a2c;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+/* ===== REMOVE BUTTON ===== */
 .removeButton {
     background-color: #D4735E;
     color: white;
     border: none;
     padding: 0.4rem 0.7rem;
+    margin-left: 0.4rem;
     border-radius: 6px;
     cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
+.removeButton:hover {
+    background-color: #bf5a42;
+}
+
+.removeButton:active {
+    transform: scale(0.95);
+}
+
+/* ===== SUMMARY PANEL ===== */
 .summary {
     margin-top: 2rem;
-    padding: 1rem;
+    padding: 1.25rem;
     background-color: #8B9D83;
     border-radius: 10px;
     color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
+/* ===== BUTTONS WRAPPER ===== */
+.buttonsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ===== CHECKOUT BUTTON ===== */
 .checkoutButton {
-    margin-top: 1rem;
     background-color: #D4735E;
     border: none;
-    padding: 0.6rem 1.2rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 8px;
     color: white;
+    font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.checkoutButton:hover {
+    background-color: #bf5a42;
+}
+
+.checkoutButton:active {
+    transform: scale(0.98);
+}
+
+/* ===== CONTINUE SHOPPING BUTTON ===== */
+.continueButton {
+    background-color: #3E2723;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    float: right;
+}
+
+.continueButton:hover {
+    background-color: #5b3a2c;
+}
+
+.continueButton:active {
+    transform: scale(0.98);
 }

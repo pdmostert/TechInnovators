@@ -324,3 +324,150 @@
     opacity: 0.45;
   }
 }
+
+/* ===== REVIEWS ===== */
+.reviewsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.reviewCard {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background-color: var(--color-card-bg);
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.reviewerName {
+  color: var(--color-text);
+}
+
+.reviewRating {
+  color: var(--color-star);
+}
+
+.reviewBody {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.noReviews {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ===== REVIEW FORM ===== */
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.reviewTextarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.reviewSubmitBtn {
+  align-self: flex-start;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reviewSubmitBtn:hover {
+  background-color: #c0604d;
+}
+
+/* ===== REVIEW LIST ===== */
+.reviewItem {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  margin-top: 2.5rem;
+  background-color: var(--color-card-bg);
+}
+
+.reviewItem strong {
+  color: var(--color-text);
+}
+
+.reviewItem p {
+  margin: 0.25rem 0 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* ===== REVIEW FORM ===== */
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-card-bg);
+}
+
+.reviewForm label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+.reviewForm textarea,
+.reviewForm select {
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: #fff;
+  color: var(--color-text);
+}
+
+.reviewForm button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.1s;
+}
+
+.reviewForm button:hover {
+  background-color: #c0604d;
+}
+
+.reviewForm button:active {
+  transform: scale(0.98);
+}
