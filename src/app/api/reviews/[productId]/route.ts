@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
-  const { productId } = params; // no Promise here
+  const { productId } = await params;
 
   const reviews = await prisma.review.findMany({
     where: { productId },
@@ -25,16 +25,19 @@ export async function GET(
 }
 
 export async function POST(
-  request: Request,
-  { params }: { params: { productId: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    if (session.user.role !== "buyer") {
+      return NextResponse.json({ error: "Only buyers can submit reviews" }, { status: 403 });
+    }
 
-    const { productId } = params;
+    const { productId } = await params;
     const body = await request.json();
     const { rating, body: comment, title } = body;
 
