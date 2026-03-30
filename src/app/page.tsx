@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 type SearchParams = Promise<{ q?: string; category?: string; price?: string }>;
 
 export default async function Home({ searchParams }: { searchParams: SearchParams }) {
-  const { q, category, price } = await searchParams;
+  const { q, category, price } = await searchParams; 
 
   const range = price && price !== "All Prices"
     ? priceRanges.find((r) => r.label === price)

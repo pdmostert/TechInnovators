@@ -86,6 +86,12 @@ export default function CartPage() {
                 <button className={styles.checkoutButton}>
                   Proceed to Checkout
                 </button>
+                </Link>
+                <Link href="/">
+                  
+                <button className={styles.continueButton}>
+                  Continue Shopping
+                </button>
               </Link>
             </div>
           </div>

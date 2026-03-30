@@ -82,19 +82,41 @@
 }
 
 /* ===== ADD TO CART BUTTON ===== */
-.addToCartButton {
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: 0.5rem;
-  padding: 0.5rem 0.75rem;
+}
+
+.addToCart {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   background-color: var(--color-primary);
   color: #fff;
   border: none;
-  border-radius: 0.375rem;
-  cursor: pointer;
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+  cursor: pointer;
 }
 
-.addToCartButton:hover {
-  background-color: #bf5a42;
-  transform: translateY(-1px);
+.addToCart:hover {
+  background-color: #c0604d;
+}
+
+.addToCart:active {
+  transform: scale(0.98);
+}
+
+.addToCart svg {
+  width: 18px;
+  height: 18px;
 }
