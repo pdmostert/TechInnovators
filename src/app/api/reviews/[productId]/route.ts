@@ -4,29 +4,24 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { productId: string } }
 ) {
-  try {
-    const { productId } = params;
+  const { productId } = params; // no Promise here
 
-    const reviews = await prisma.review.findMany({
-      where: { productId },
-      orderBy: { createdAt: "desc" },
-      select: {
-        rating: true,
-        title: true,
-        body: true,
-        createdAt: true,
-        user: { select: { name: true } },
-      },
-    });
+  const reviews = await prisma.review.findMany({
+    where: { productId },
+    orderBy: { createdAt: "desc" },
+    select: {
+      rating: true,
+      title: true,
+      body: true,
+      createdAt: true,
+      user: { select: { name: true } },
+    },
+  });
 
-    return NextResponse.json(reviews);
-  } catch (error) {
-    console.error("Failed to fetch reviews:", error);
-    return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });
-  }
+  return NextResponse.json(reviews);
 }
 
 export async function POST(

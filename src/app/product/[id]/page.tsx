@@ -12,6 +12,25 @@ import Reviews from "./Reviews";
 import ReviewForm from "./ReviewForm";
 import ProductReviews from "./ProductReviews";
 
+// type Props = { params: Promise<{ id: string }> };
+
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   const { id } = await params;
+//   const product = await prisma.product.findUnique({
+//     where: { id },
+//     select: { name: true, description: true, imageUrl: true },
+//   });
+//   if (!product) return { title: "Product Not Found | Handcrafted Haven" };
+//   return {
+//     title: `${product.name} | Handcrafted Haven`,
+//     description: product.description,
+//     openGraph: {
+//       title: product.name,
+//       description: product.description,
+//       images: [{ url: product.imageUrl }],
+//     },
+//   };
+// }
 type Props = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
