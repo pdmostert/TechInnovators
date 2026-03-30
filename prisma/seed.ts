@@ -126,7 +126,7 @@ async function main() {
             data: {
                 name: 'Handcrafted Ceramic Bowl',
                 description: 'A beautiful handcrafted ceramic bowl with a soft cream glaze. Perfect for serving salads or as a decorative piece.',
-                imageUrl: 'https://picsum.photos/seed/bowl1/400/320',
+                imageUrl: '/images/ceramic-bowl.png',
                 price: 48,
                 sellerId: emmaCeramics.id,
                 categoryId: pottery.id,
@@ -137,7 +137,7 @@ async function main() {
             data: {
                 name: 'Woven Wall Hanging',
                 description: 'A stunning hand-woven wall hanging made from natural cotton and wool, featuring earthy tones and intricate patterns.',
-                imageUrl: 'https://picsum.photos/seed/textile2/400/320',
+                imageUrl: '/images/wall-hanging.png',
                 price: 85,
                 sellerId: threadAndLoom.id,
                 categoryId: textiles.id,
@@ -148,7 +148,7 @@ async function main() {
             data: {
                 name: 'Copper Wire Earrings',
                 description: 'Delicate hand-formed copper wire earrings with a hammered texture. Lightweight and hypoallergenic, ideal for everyday wear.',
-                imageUrl: 'https://picsum.photos/seed/jewel3/400/320',
+                imageUrl: '/images/copper-earrings.png',
                 price: 32,
                 sellerId: silverAndStone.id,
                 categoryId: jewelry.id,
@@ -159,7 +159,7 @@ async function main() {
             data: {
                 name: 'Wooden Serving Board',
                 description: 'A rustic serving board hand-cut from reclaimed walnut wood. Finished with food-safe oil for a warm, natural look.',
-                imageUrl: 'https://picsum.photos/seed/wood4/400/320',
+                imageUrl: '/images/wood-board.png',
                 price: 65,
                 sellerId: oakAndVine.id,
                 categoryId: woodwork.id,
@@ -170,7 +170,7 @@ async function main() {
             data: {
                 name: 'Artisan Coffee Mug Set',
                 description: 'A set of two wheel-thrown stoneware mugs with a rich chocolate glaze. Each piece is unique with subtle variations from the kiln.',
-                imageUrl: 'https://picsum.photos/seed/mug5/400/320',
+                imageUrl: '/images/ceramic-mugs.png',
                 price: 72,
                 sellerId: emmaCeramics.id,
                 categoryId: pottery.id,
@@ -181,7 +181,7 @@ async function main() {
             data: {
                 name: 'Macramé Plant Hanger',
                 description: 'Hand-knotted macramé plant hanger using 100% natural cotton rope. Fits pots up to 8 inches in diameter.',
-                imageUrl: 'https://picsum.photos/seed/plant6/400/320',
+                imageUrl: '/images/plant-hanger.png',
                 price: 45,
                 sellerId: threadAndLoom.id,
                 categoryId: textiles.id,
@@ -192,7 +192,7 @@ async function main() {
             data: {
                 name: 'Silver Leaf Pendant',
                 description: "A sterling silver pendant shaped from a real pressed leaf. Each necklace captures nature's organic detail in lasting metal.",
-                imageUrl: 'https://picsum.photos/seed/pendant7/400/320',
+                imageUrl: '/images/silver-necklace.png',
                 price: 58,
                 sellerId: silverAndStone.id,
                 categoryId: jewelry.id,
@@ -203,7 +203,7 @@ async function main() {
             data: {
                 name: 'Hand-Painted Vase',
                 description: 'A tall earthenware vase hand-painted with botanical motifs in muted sage and terracotta. Waterproof interior glaze included.',
-                imageUrl: 'https://picsum.photos/seed/vase8/400/320',
+                imageUrl: '/images/ceramic-vase.png',
                 price: 95,
                 sellerId: emmaCeramics.id,
                 categoryId: pottery.id,
@@ -214,7 +214,7 @@ async function main() {
             data: {
                 name: 'Linen Table Runner',
                 description: 'A stonewashed linen table runner in natural oatmeal with hand-stitched fringe ends. Elegant for everyday dining or special occasions.',
-                imageUrl: 'https://picsum.photos/seed/linen9/400/320',
+                imageUrl: '/images/linen-runner.png',
                 price: 38,
                 sellerId: threadAndLoom.id,
                 categoryId: textiles.id,
@@ -225,7 +225,7 @@ async function main() {
             data: {
                 name: 'Carved Oak Bowl',
                 description: 'A large hand-carved oak bowl with a smooth interior and raw exterior edge. A statement piece for any home.',
-                imageUrl: 'https://picsum.photos/seed/oak10/400/320',
+                imageUrl: '/images/oak-bowl.png',
                 price: 120,
                 sellerId: oakAndVine.id,
                 categoryId: woodwork.id,
@@ -236,7 +236,7 @@ async function main() {
             data: {
                 name: 'Beaded Bracelet Set',
                 description: 'A set of three stretch bracelets made with semi-precious stones including amethyst, rose quartz, and aventurine.',
-                imageUrl: 'https://picsum.photos/seed/bead11/400/320',
+                imageUrl: '/images/beaded-bracelets.png',
                 price: 28,
                 sellerId: silverAndStone.id,
                 categoryId: jewelry.id,
@@ -247,7 +247,7 @@ async function main() {
             data: {
                 name: 'Wicker Storage Basket',
                 description: 'A hand-woven wicker basket with sturdy handles, perfect for blankets, toys, or pantry storage. Natural and sustainably sourced.',
-                imageUrl: 'https://picsum.photos/seed/wicker12/400/320',
+                imageUrl: '/images/wicker-basket.png',
                 price: 55,
                 sellerId: oakAndVine.id,
                 categoryId: woodwork.id,
