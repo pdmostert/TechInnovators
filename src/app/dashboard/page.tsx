@@ -11,6 +11,10 @@ export default async function DashboardPage() {
     redirect("/auth/login?callbackUrl=/dashboard");
   }
 
+  if (session.user.role !== "seller") {
+    redirect("/unauthorized?from=%2Fdashboard");
+  }
+
   return (
     <main className={styles.container}>
       <div className={styles.inner}>

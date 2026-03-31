@@ -22,8 +22,12 @@ export default async function ProductEditPage({ params }: Props) {
   const { id } = await params;
 
   const session = await getServerSession(authOptions);
-  if (session?.user?.role !== "seller") {
-    redirect("/auth/login");
+  if (!session?.user) {
+    redirect(`/auth/login?callbackUrl=/product/${id}/edit`);
+  }
+
+  if (session.user.role !== "seller") {
+    redirect(`/unauthorized?from=${encodeURIComponent(`/product/${id}/edit`)}`);
   }
 
   const [product, dbCategories] = await Promise.all([
