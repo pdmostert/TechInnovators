@@ -115,6 +115,22 @@
   color: var(--color-primary);
 }
 
+.dashboardLink {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  color: white !important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  margin-right: 0.75rem;
+}
+
+.dashboardLink:hover {
+  opacity: 0.9;
+}
+
 .iconBtn svg {
   width: 22px;
   height: 22px;

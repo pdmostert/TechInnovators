@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/app/ui/header/Header";
 import { CartProvider } from "@/context/CartContext";
 import { Toaster } from "react-hot-toast"; // import toaster
+import { Providers } from "@/app/Providers";
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
@@ -18,11 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-          <Header />
-          {children}
-          <Toaster position="top-right" /> {/* toast notifications */}
-        </CartProvider>
+        <Providers>
+          <CartProvider>
+            <Header />
+            {children}
+            <Toaster position="top-right" /> {/* toast notifications */}
+          </CartProvider>
+        </Providers>
       </body>
     </html>
   );
