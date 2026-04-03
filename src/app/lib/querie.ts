@@ -19,3 +19,37 @@ export async function getProductById(id: string) {
     include: { category: true, seller: { include: { sellerProfile: true } }, reviews: true },
   });
 }
+
+export async function getBuyerStats(userId: string) {
+  const [user, reviewsCount] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { createdAt: true },
+    }),
+    prisma.review.count({
+      where: { userId },
+    }),
+  ]);
+
+  return {
+    joinedDate: user?.createdAt || new Date(),
+    reviewsCount,
+  };
+}
+
+export async function getSellerStats(userId: string) {
+  const [user, productsCount] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { createdAt: true },
+    }),
+    prisma.product.count({
+      where: { sellerId: userId },
+    }),
+  ]);
+
+  return {
+    joinedDate: user?.createdAt || new Date(),
+    productsCount,
+  };
+}

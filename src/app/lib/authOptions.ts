@@ -9,24 +9,7 @@ const loginSchema = z.object({
   password: z.string().min(8),
 });
 
-// Temporary in-memory users for Week 3 auth/routing implementation.
-// This will be replaced by Prisma-backed user queries in the data lane.
-// const demoUsers = [
-//   {
-//     id: "seller-1",
-//     name: "Seller Demo",
-//     email: "seller@handcraftedhaven.dev",
-//     password: "Password123!",
-//     role: "seller",
-//   },
-//   {
-//     id: "buyer-1",
-//     name: "Buyer Demo",
-//     email: "buyer@handcraftedhaven.dev",
-//     password: "Password123!",
-//     role: "buyer",
-//   },
-// ] as const;
+// No demo users. Authentication is strictly via Prisma database.
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -67,7 +50,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as { role?: "buyer" | "seller" }).role;
+        token.role = (user as { role: "buyer" | "seller" }).role;
       }
       return token;
     },

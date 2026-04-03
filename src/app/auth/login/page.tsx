@@ -10,11 +10,15 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const { callbackUrl = "/profile" } = await searchParams;
 
   return (
-    <main style={{ maxWidth: 540, margin: "3rem auto", padding: "0 1rem" }}>
-      <h1 style={{ marginBottom: "0.5rem" }}>Sign In</h1>
-      <p style={{ marginBottom: "1.25rem" }}>
-        Week 3 demo auth is enabled. This will move to Prisma users next.
-      </p>
+    <main style={{ maxWidth: 540, margin: "4rem auto", padding: "0 1.5rem" }}>
+      <header>
+        <h1 id="login-title" style={{ marginBottom: "0.5rem", fontSize: "2.2rem", fontFamily: "var(--font-heading)" }}>
+          Sign In
+        </h1>
+        <p style={{ marginBottom: "2rem", color: "var(--color-text)", fontSize: "1.1rem" }}>
+          Welcome back! Access your personalized handcrafted experience.
+        </p>
+      </header>
 
       <LoginForm callbackUrl={callbackUrl} />
     </main>

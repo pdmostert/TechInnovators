@@ -1,0 +1,115 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--color-background);
+}
+
+.card {
+  max-width: 32rem;
+  width: 100%;
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+}
+
+.iconBox {
+  width: 4rem;
+  height: 4rem;
+  background-color: #D4E1D1; /* Light professional green */
+  color: #2D5A27;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.iconBox svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.message {
+  color: var(--color-text-muted);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.orderBox {
+  background-color: #FDF7F5;
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--color-primary-light);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.orderLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: #7A5C58;
+}
+
+.orderId {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.info {
+  margin-bottom: 2.5rem;
+  color: #7A5C58;
+  font-size: 0.875rem;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.primaryButton {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.primaryButton:hover {
+  background-color: #A34E3C;
+}
+
+.secondaryButton {
+  color: var(--color-text);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.secondaryButton:hover {
+  background-color: var(--color-primary-light);
+}

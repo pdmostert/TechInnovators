@@ -8,25 +8,21 @@
 
 :root {
   /* === YOUR BRAND COLORS === */
-  --color-primary: #D4735E;
-  /* Terracotta */
-  --color-secondary: #8B9D83;
-  /* Sage Green */
-  --color-background: #FFF9F5;
-  /* Soft Cream */
-  --color-accent: #E8C5A5;
-  /* Warm Beige */
-  --color-text: #3E2723;
-  /* Rich Brown */
+  --color-primary: #B3513B;      /* Slightly Darker Terracotta (AA compliance 4.5:1 on light) */
+  --color-secondary: #5F6E55;    /* Darker Sage for better contrast */
+  --color-background: #FFF9F5;    /* Soft Cream */
+  --color-accent: #E8C5A5;        /* Warm Beige */
+  --color-text: #2D1A17;          /* High-Contrast Rich Brown (AA Large text) */
+  --color-success: #065F46;       /* Sage success text */
+  --color-error: #9F1239;         /* Rich error red */
 
-  /* === DERIVED COLORS (tints of your palette) === */
+  /* === DERIVED COLORS === */
   --color-primary-light: #F2D0C8;
-  --color-secondary-light: #D4DDCF;
-  --color-text-muted: #7A5C58;
   --color-border: #E8DDD8;
   --color-card-bg: #FFFFFF;
-  --color-star: #D4735E;
-  /* stars use primary */
+
+  /* === FOCUS STYLE === */
+  --focus-ring: 0 0 0 3px rgba(179, 81, 59, 0.4);
 
   /* === TYPOGRAPHY === */
   --font-heading: 'Playfair Display', Georgia, serif;
@@ -37,6 +33,25 @@
   --radius-md: 10px;
   --radius-lg: 14px;
   --shadow-card: 0 1px 4px rgba(62, 39, 35, 0.08);
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Custom focus indicator */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* === RESET & BASE === */
