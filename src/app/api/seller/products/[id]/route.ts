@@ -44,6 +44,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 
     return NextResponse.json(updated);
   } catch (error) {
+    console.error("Error updating product:", error);
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -72,6 +73,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     return new NextResponse(null, { status: 204 });
   } catch (error) {
+    console.error("Error deleting product:", error);
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -45,8 +45,9 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
             setFormData(prev => ({ ...prev, categoryId: data[0].id }));
           }
         }
-      } catch (err) {
-        toast.error("Failed to load categories");
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : "Failed to load categories";
+        toast.error(message);
       }
     }
     fetchCategories();
@@ -73,8 +74,9 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
 
       toast.success(product?.id ? "Product updated!" : "Product added!");
       onSuccess();
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An unexpected error occurred.";
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -83,7 +85,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
   const inputStyle = {
     padding: "0.8rem",
     borderRadius: "8px",
-    border: "1px solid #E8DDD8",
+    border: "1px solid var(--color-border)",
     fontSize: "1rem",
     outline: "none",
     width: "100%",
@@ -105,7 +107,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
         <h3 style={{ fontSize: "1.5rem", fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
           {product?.id ? "Edit Product" : "Add New Artisan Product"}
         </h3>
-        <p style={{ fontSize: "0.9rem", color: "#7A5C58" }}>
+        <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)" }}>
           Share your craft with the Handcrafted Haven community.
         </p>
       </header>
@@ -184,7 +186,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
             flex: 1,
             padding: "0.75rem",
             borderRadius: "8px",
-            border: "1px solid #E8DDD8",
+            border: "1px solid var(--color-border)",
             background: "white",
             fontWeight: 600,
             cursor: "pointer"

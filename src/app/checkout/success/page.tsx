@@ -19,7 +19,7 @@ function SuccessContent() {
       
       <h1 className={styles.title}>Order Confirmed!</h1>
       <p className={styles.message}>
-        Thank you for your purchase. We've received your order and are getting it ready for shipment.
+        Thank you for your purchase. We&apos;ve received your order and are getting it ready for shipment.
       </p>
       
       <div className={styles.orderBox}>

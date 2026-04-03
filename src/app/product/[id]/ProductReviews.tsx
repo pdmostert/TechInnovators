@@ -4,12 +4,6 @@ import { useState } from "react";
 import Reviews from "./Reviews";
 import ReviewForm from "./ReviewForm";
 
-type Review = {
-  rating: number;
-  body: string;
-  userName: string;
-};
-
 type Props = { productId: string };
 
 export default function ProductReviews({ productId }: Props) {

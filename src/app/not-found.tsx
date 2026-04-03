@@ -15,7 +15,7 @@ export default function NotFound() {
           priority
         />
       </div>
-      <h2 className={styles.title}>Oops! You've drifted off course.</h2>
+      <h2 className={styles.title}>Oops! You&apos;ve drifted off course.</h2>
       <p className={styles.message}>
         The page you are looking for has flown away or is being handcrafted somewhere else.
       </p>
