@@ -66,8 +66,12 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
-    await prisma.product.delete({
+    // Soft-delete: set isActive to false instead of hard deleting.
+    // A hard delete would fail because existing OrderItems reference this product
+    // via an onDelete: Restrict constraint, and it also preserves buyer order history.
+    await prisma.product.update({
       where: { id },
+      data: { isActive: false },
     });
 
     return new NextResponse(null, { status: 204 });
@@ -75,3 +79,4 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
+

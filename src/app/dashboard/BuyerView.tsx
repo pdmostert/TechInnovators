@@ -56,7 +56,7 @@ export default function BuyerView({ stats, userName }: BuyerViewProps) {
             <h2 className={styles.sectionTitle}>My Shopping Snapshot</h2>
             <Link href="/" className={styles.shopLink}>Browse Shop</Link>
           </div>
-          
+
           <div className={styles.emptyState}>
             <div className={styles.emptyIcon}>🛍️</div>
             <h3>No orders yet?</h3>
@@ -71,7 +71,7 @@ export default function BuyerView({ stats, userName }: BuyerViewProps) {
             <p>Your reviews help other shoppers find the best quality items and support local artisans.</p>
             <button className={styles.sideButton} disabled>View My Reviews</button>
           </div>
-          
+
           <div className={styles.sideCard}>
             <h3>Account Settings</h3>
             <p>Manage your shipping addresses and personal information.</p>
