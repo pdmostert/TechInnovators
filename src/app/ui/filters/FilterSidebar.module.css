@@ -59,8 +59,9 @@
 }
 
 .filterBtn.active {
+  background-color: var(--color-primary-light);
   color: var(--color-primary);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .dot {
