@@ -34,8 +34,9 @@ export default function ReviewForm({ productId, onReviewAdded }: Props) {
       setTitle("");
       setRating(5);
       onReviewAdded(); // refresh reviews
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setError(message);
     } finally {
       setLoading(false);
     }

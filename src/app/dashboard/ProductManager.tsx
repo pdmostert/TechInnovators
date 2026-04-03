@@ -30,8 +30,9 @@ export default function ProductManager() {
       } else {
         toast.error("Failed to load products");
       }
-    } catch (err) {
-      toast.error("An error occurred");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An error occurred";
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -52,8 +53,9 @@ export default function ProductManager() {
       } else {
         toast.error("Failed to delete product");
       }
-    } catch (err) {
-      toast.error("An error occurred during deletion");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An error occurred during deletion";
+      toast.error(message);
     }
   }
 
@@ -112,7 +114,7 @@ export default function ProductManager() {
             {isLoading ? (
               <tr><td colSpan={4} style={{ padding: "2rem", textAlign: "center", color: "#666" }}>Loading your products...</td></tr>
             ) : products.length === 0 ? (
-              <tr><td colSpan={4} style={{ padding: "2rem", textAlign: "center", color: "#666" }}>You haven't listed any products yet.</td></tr>
+              <tr><td colSpan={4} style={{ padding: "2rem", textAlign: "center", color: "#666" }}>You haven&apos;t listed any products yet.</td></tr>
             ) : products.map(product => (
               <tr key={product.id} style={{ borderBottom: "1px solid #F5F5F5" }}>
                 <td style={{ padding: "1rem", fontWeight: 600 }}>{product.name}</td>

@@ -1,8 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/lib/authOptions";
-import Link from "next/link";
-import styles from "./Dashboard.module.css";
 import { getBuyerStats, getSellerStats } from "@/app/lib/querie";
 import BuyerView from "./BuyerView";
 import SellerView from "./SellerView";

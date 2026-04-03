@@ -14,17 +14,16 @@ export default function LoginForm({ callbackUrl }: LoginFormProps) {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(() => {
+    const error = searchParams.get("error");
+    if (error === "CredentialsSignin") {
+      return { type: "error", message: "Invalid email or password. Please try again." };
+    }
+    return null;
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const [isRedirecting, setIsRedirecting] = useState(false);
-
-  useEffect(() => {
-    const error = searchParams.get("error");
-    if (error === "CredentialsSignin") {
-      setStatus({ type: "error", message: "Invalid email or password. Please try again." });
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -59,8 +58,9 @@ export default function LoginForm({ callbackUrl }: LoginFormProps) {
 
       setStatus({ type: "success", message: "Successfully signed in!" });
       setIsRedirecting(true);
-    } catch (err) {
-      setStatus({ type: "error", message: "An unexpected error occurred. Please try again later." });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An unexpected error occurred. Please try again later.";
+      setStatus({ type: "error", message });
       setIsSubmitting(false);
     }
   }
@@ -76,9 +76,9 @@ export default function LoginForm({ callbackUrl }: LoginFormProps) {
             borderRadius: "var(--radius-md)", 
             fontSize: "1rem",
             fontWeight: 500,
-            backgroundColor: status.type === "success" ? "#F0FDFA" : "#FFF1F2",
-            color: status.type === "success" ? "#065F46" : "#991B1B",
-            border: `1px solid ${status.type === "success" ? "#10B981" : "#F43F5E"}`,
+            backgroundColor: status.type === "success" ? "var(--color-success-bg)" : "var(--color-error-bg)",
+            color: status.type === "success" ? "var(--color-success)" : "var(--color-error)",
+            border: `1px solid ${status.type === "success" ? "var(--color-success-border)" : "var(--color-error-border)"}`,
             display: "flex",
             flexDirection: "column",
             gap: "0.75rem",
@@ -107,13 +107,13 @@ export default function LoginForm({ callbackUrl }: LoginFormProps) {
             <div style={{ 
               width: "100%", 
               height: "4px", 
-              backgroundColor: "#D1FAE5", 
+              backgroundColor: "var(--color-success-bg)", 
               borderRadius: "2px",
               overflow: "hidden"
             }}>
               <div style={{ 
                 height: "100%", 
-                backgroundColor: "#10B981", 
+                backgroundColor: "var(--color-success-border)", 
                 width: `${((5 - countdown) / 5) * 100}%`,
                 transition: "width 1s linear"
               }} />

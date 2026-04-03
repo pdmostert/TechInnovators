@@ -17,6 +17,10 @@
   --color-star: #92520A;         /* Deep amber — 4.8:1 on white (WCAG AA) */
   --color-success: #065F46;      /* Sage success text */
   --color-error: #9F1239;        /* Rich error red */
+  --color-success-bg: #ecfdf5;   /* Light green background for success */
+  --color-error-bg: #fff1f2;     /* Light red background for error */
+  --color-success-border: #10b981; /* Green border for success */
+  --color-error-border: #f43f5e;   /* Red border for error */
 
   /* === DERIVED COLORS === */
   --color-primary-light: #F2D0C8;

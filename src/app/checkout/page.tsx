@@ -86,8 +86,9 @@ export default function CheckoutPage() {
       toast.success("Order confirmed! Thank you for your purchase.", { id: loadingToast });
       clearCart();
       router.push(`/checkout/success?orderId=${data.orderId}`);
-    } catch (err) {
-      toast.error("A network error occurred. Please check your connection.", { id: loadingToast });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "A network error occurred. Please check your connection.";
+      toast.error(message, { id: loadingToast });
     } finally {
       setIsSubmitting(false);
     }
@@ -313,4 +314,4 @@ export default function CheckoutPage() {
       </div>
     </main>
   );
-}
+}

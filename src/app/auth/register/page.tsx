@@ -38,9 +38,10 @@ export default function RegisterPage() {
       setTimeout(() => {
         router.push("/auth/login");
       }, 2000);
-    } catch (err: any) {
-      setStatus({ type: "error", message: err.message });
-      toast.error(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setStatus({ type: "error", message });
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -78,9 +79,9 @@ export default function RegisterPage() {
             marginBottom: "1.5rem",
             fontSize: "1rem",
             fontWeight: 500,
-            backgroundColor: status.type === "success" ? "#ecfdf5" : "#fff1f2",
+            backgroundColor: status.type === "success" ? "var(--color-success-bg)" : "var(--color-error-bg)",
             color: status.type === "success" ? "var(--color-success)" : "var(--color-error)",
-            border: `1px solid ${status.type === "success" ? "#10b981" : "#f43f5e"}`,
+            border: `1px solid ${status.type === "success" ? "var(--color-success-border)" : "var(--color-error-border)"}`,
             display: "flex",
             alignItems: "center",
             gap: "0.5rem"

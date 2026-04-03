@@ -8,8 +8,6 @@ import { authOptions } from "@/app/lib/authOptions";
 import { prisma } from "@/app/lib/prisma";
 import styles from "./page.module.css";
 import AddToCartButton from "./AddToCartButton";
-import Reviews from "./Reviews";
-import ReviewForm from "./ReviewForm";
 import ProductReviews from "./ProductReviews";
 
 // type Props = { params: Promise<{ id: string }> };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import styles from "./page.module.css";
 
 type Review = {
@@ -19,7 +19,7 @@ export default function Reviews({ productId }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
@@ -27,16 +27,17 @@ export default function Reviews({ productId }: Props) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to fetch reviews");
       setReviews(data);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An unexpected error occurred.";
+      setError(message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [productId]);
 
   useEffect(() => {
     fetchReviews();
-  }, [productId]);
+  }, [fetchReviews]);
 
   if (loading) return <p>Loading reviews...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
