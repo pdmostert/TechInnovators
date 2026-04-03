@@ -8,13 +8,15 @@
 
 :root {
   /* === YOUR BRAND COLORS === */
-  --color-primary: #B3513B;      /* Slightly Darker Terracotta (AA compliance 4.5:1 on light) */
+  --color-primary: #8B2E1F;      /* Darker Terracotta for better contrast — 8:1 on white (WCAG AAA) */
   --color-secondary: #5F6E55;    /* Darker Sage for better contrast */
-  --color-background: #FFF9F5;    /* Soft Cream */
-  --color-accent: #E8C5A5;        /* Warm Beige */
-  --color-text: #2D1A17;          /* High-Contrast Rich Brown (AA Large text) */
-  --color-success: #065F46;       /* Sage success text */
-  --color-error: #9F1239;         /* Rich error red */
+  --color-background: #FFF9F5;   /* Soft Cream */
+  --color-accent: #E8C5A5;       /* Warm Beige */
+  --color-text: #2D1A17;         /* High-Contrast Rich Brown */
+  --color-text-muted: #3D2A27;   /* Darker muted brown — 12:1 on white (WCAG AAA) */
+  --color-star: #92520A;         /* Deep amber — 4.8:1 on white (WCAG AA) */
+  --color-success: #065F46;      /* Sage success text */
+  --color-error: #9F1239;        /* Rich error red */
 
   /* === DERIVED COLORS === */
   --color-primary-light: #F2D0C8;

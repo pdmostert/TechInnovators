@@ -18,10 +18,10 @@ export type ProductListItem = {
 
 function StarRating({ rating, reviewCount }: { rating: number; reviewCount: number }) {
   return (
-    <div className={styles.rating}>
+    <div className={styles.rating} aria-label={`Rating: ${rating.toFixed(1)} out of 5 (${reviewCount} ${reviewCount === 1 ? "review" : "reviews"})`}>
       <span className={styles.star} aria-hidden="true">★</span>
-      <span className={styles.ratingValue}>{rating.toFixed(1)}</span>
-      <span>({reviewCount})</span>
+      <span className={styles.ratingValue} aria-hidden="true">{rating.toFixed(1)}</span>
+      <span aria-hidden="true">({reviewCount})</span>
     </div>
   );
 }
@@ -45,7 +45,7 @@ export default function ProductCard({ product }: { product: ProductListItem }) {
       <div className={styles.imageWrapper}>
         <Image
           src={product.imageUrl}
-          alt={product.name}
+          alt=""
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className={styles.image}
