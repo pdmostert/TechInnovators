@@ -11,7 +11,7 @@ import styles from "./checkout.module.css";
 export default function CheckoutPage() {
   const { cartItems, clearCart } = useCart();
   const router = useRouter();
-  
+
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -40,7 +40,7 @@ export default function CheckoutPage() {
     const { name, value } = e.target;
     // Basic formatting for card number (removing spaces)
     const cleanValue = name === "cardNumber" ? value.replace(/\s+/g, "") : value;
-    
+
     setForm({ ...form, [name]: cleanValue });
     // Clear error for that field
     if (errors[name as keyof CheckoutFormData]) {
@@ -51,7 +51,7 @@ export default function CheckoutPage() {
   const submitOrder = async () => {
     // 1. Client-Side Validation
     const validation = checkoutSchema.safeParse(form);
-    
+
     if (!validation.success) {
       const fieldErrors: Partial<Record<keyof CheckoutFormData, string>> = {};
       validation.error.issues.forEach((issue) => {
@@ -64,7 +64,7 @@ export default function CheckoutPage() {
     }
 
     setIsSubmitting(true);
-    const loadingToast = toast.loading("Processing your order securey...");
+    const loadingToast = toast.loading("Processing your order securely...");
 
     try {
       const response = await fetch("/api/checkout", {
@@ -115,12 +115,14 @@ export default function CheckoutPage() {
           {/* Contact Information */}
           <section className={styles.section}>
             <div className={styles.sectionHeading}>
-               <span>1. Contact Information</span>
+               <span>Contact Information</span>
             </div>
             <div className={styles.inputGroup}>
+               <label htmlFor="email" className={styles.label}>Email Address</label>
                <input
                  type="email"
                  name="email"
+                 id="email"
                  placeholder="you@example.com"
                  className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
                  value={form.email}
@@ -134,13 +136,15 @@ export default function CheckoutPage() {
           {/* Shipping Address */}
           <section className={styles.section}>
             <div className={styles.sectionHeading}>
-               <span>2. Shipping Address</span>
+               <span>Shipping Address</span>
             </div>
             <div className={styles.row}>
               <div className={styles.inputGroupHalf}>
+                <label htmlFor="firstName" className={styles.label}>First Name</label>
                 <input
                   type="text"
                   name="firstName"
+                  id="firstName"
                   placeholder="First Name"
                   className={`${styles.input} ${errors.firstName ? styles.inputError : ""}`}
                   value={form.firstName}
@@ -149,9 +153,11 @@ export default function CheckoutPage() {
                 {errors.firstName && <p className={styles.errorMessage}>{errors.firstName}</p>}
               </div>
               <div className={styles.inputGroupHalf}>
+                <label htmlFor="lastName" className={styles.label}>Last Name</label>
                 <input
                   type="text"
                   name="lastName"
+                  id="lastName"
                   placeholder="Last Name"
                   className={`${styles.input} ${errors.lastName ? styles.inputError : ""}`}
                   value={form.lastName}
@@ -162,9 +168,11 @@ export default function CheckoutPage() {
             </div>
 
             <div className={styles.inputGroup}>
+              <label htmlFor="address" className={styles.label}>Full Street Address</label>
               <input
                 type="text"
                 name="address"
+                id="address"
                 placeholder="Full Street Address"
                 className={`${styles.input} ${errors.address ? styles.inputError : ""}`}
                 value={form.address}
@@ -175,9 +183,11 @@ export default function CheckoutPage() {
 
             <div className={styles.row}>
               <div className={styles.inputGroupThird}>
+                <label htmlFor="zip" className={styles.label}>Zip Code</label>
                 <input
                   type="text"
                   name="zip"
+                  id="zip"
                   placeholder="Zip Code"
                   className={`${styles.input} ${errors.zip ? styles.inputError : ""}`}
                   value={form.zip}
@@ -186,9 +196,11 @@ export default function CheckoutPage() {
                 {errors.zip && <p className={styles.errorMessage}>{errors.zip}</p>}
               </div>
               <div className={styles.inputGroupThird}>
+                <label htmlFor="city" className={styles.label}>City</label>
                 <input
                   type="text"
                   name="city"
+                  id="city"
                   placeholder="City"
                   className={`${styles.input} ${errors.city ? styles.inputError : ""}`}
                   value={form.city}
@@ -197,9 +209,11 @@ export default function CheckoutPage() {
                 {errors.city && <p className={styles.errorMessage}>{errors.city}</p>}
               </div>
               <div className={styles.inputGroupThird}>
+                <label htmlFor="state" className={styles.label}>State</label>
                 <input
                   type="text"
                   name="state"
+                  id="state"
                   placeholder="State"
                   className={`${styles.input} ${errors.state ? styles.inputError : ""}`}
                   value={form.state}
@@ -209,8 +223,10 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            <label htmlFor="country" className={styles.label}>Country</label>
             <select
               name="country"
+              id="country"
               className={styles.input}
               value={form.country}
               onChange={handleChange}
@@ -224,12 +240,14 @@ export default function CheckoutPage() {
           {/* Payment Method */}
           <section className={styles.section}>
             <div className={styles.sectionHeading}>
-               <span>3. Secure Payment</span>
+               <span>Secure Payment</span>
             </div>
             <div className={styles.inputGroup}>
+               <label htmlFor="cardNumber" className={styles.label}>Card Number</label>
                <input
                  type="text"
                  name="cardNumber"
+                 id="cardNumber"
                  maxLength={16}
                  placeholder="Card Number (16 digits)"
                  className={`${styles.input} ${errors.cardNumber ? styles.inputError : ""}`}
@@ -240,31 +258,35 @@ export default function CheckoutPage() {
             </div>
 
             <div className={styles.row}>
-              <div className={styles.inputGroupHalf}>
-                <input
-                  type="text"
-                  name="expiry"
-                  placeholder="MM/YY"
-                  maxLength={5}
-                  className={`${styles.input} ${errors.expiry ? styles.inputError : ""}`}
-                  value={form.expiry}
-                  onChange={handleChange}
-                />
-                {errors.expiry && <p className={styles.errorMessage}>{errors.expiry}</p>}
+                <div className={styles.inputGroupHalf}>
+                  <label htmlFor="expiry" className={styles.label}>Expiration Date (MM/YY)</label>
+                  <input
+                    type="text"
+                    name="expiry"
+                    id="expiry"
+                    placeholder="MM/YY"
+                    maxLength={5}
+                    className={`${styles.input} ${errors.expiry ? styles.inputError : ""}`}
+                    value={form.expiry}
+                    onChange={handleChange}
+                  />
+                  {errors.expiry && <p className={styles.errorMessage}>{errors.expiry}</p>}
+                </div>
+                <div className={styles.inputGroupHalf}>
+                  <label htmlFor="cvc" className={styles.label}>CVC</label>
+                  <input
+                    type="password"
+                    name="cvc"
+                    id="cvc"
+                    placeholder="CVC"
+                    maxLength={4}
+                    className={`${styles.input} ${errors.cvc ? styles.inputError : ""}`}
+                    value={form.cvc}
+                    onChange={handleChange}
+                  />
+                  {errors.cvc && <p className={styles.errorMessage}>{errors.cvc}</p>}
+                </div>
               </div>
-              <div className={styles.inputGroupHalf}>
-                <input
-                  type="password"
-                  name="cvc"
-                  placeholder="CVC"
-                  maxLength={4}
-                  className={`${styles.input} ${errors.cvc ? styles.inputError : ""}`}
-                  value={form.cvc}
-                  onChange={handleChange}
-                />
-                {errors.cvc && <p className={styles.errorMessage}>{errors.cvc}</p>}
-              </div>
-            </div>
           </section>
         </div>
 
@@ -306,9 +328,14 @@ export default function CheckoutPage() {
             >
               {isSubmitting ? "Processing..." : "Secure Order Now"}
             </button>
-            <Link href="/cart" className={styles.backLink}>
+            
+            <button
+              type="button"
+              className={styles.backToCartButton}
+              onClick={() => router.push('/cart')}
+            >
               Return to Cart
-            </Link>
+            </button>
           </div>
         </aside>
       </div>

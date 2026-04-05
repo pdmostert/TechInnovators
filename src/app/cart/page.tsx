@@ -13,6 +13,14 @@ export default function CartPage() {
     0
   );
 
+  // Function to handle item removal with confirmation
+  const handleRemove = (itemId: string) => {
+    const confirmRemove = window.confirm("Do you want to remove this item?");
+    if (confirmRemove) {
+      removeFromCart(itemId);
+    }
+  };
+
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>Shopping Cart</h1>
@@ -68,7 +76,7 @@ export default function CartPage() {
 
                 {/* Remove */}
                 <button
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => handleRemove(item.id)} // Use the new handleRemove function
                   className={styles.removeButton}
                 >
                   Remove
@@ -86,9 +94,8 @@ export default function CartPage() {
                 <button className={styles.checkoutButton}>
                   Proceed to Checkout
                 </button>
-                </Link>
-                <Link href="/">
-                  
+              </Link>
+              <Link href="/">
                 <button className={styles.continueButton}>
                   Continue Shopping
                 </button>
