@@ -49,6 +49,7 @@ export default function ProductCard({ product }: { product: ProductListItem }) {
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className={styles.image}
+          loading="lazy"
         />
       </div>
       <div className={styles.body}>
