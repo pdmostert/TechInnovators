@@ -25,20 +25,20 @@
   /* === DERIVED COLORS === */
   --color-primary-light: #F2D0C8;
   --color-border: #E8DDD8;
-  --color-card-bg: #FFFFFF;
+  --color-card-bg: #FFF;
 
   /* === FOCUS STYLE === */
-  --focus-ring: 0 0 0 3px rgba(179, 81, 59, 0.4);
+  --focus-ring: 0 0 0 3px rgb(179 81 59 / 40%);
 
   /* === TYPOGRAPHY === */
-  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Playfair Display', georgia, serif;
   --font-body: 'Lato', system-ui, sans-serif;
 
   /* === SPACING & SHAPE === */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
-  --shadow-card: 0 1px 4px rgba(62, 39, 35, 0.08);
+  --shadow-card: 0 1px 4px rgb(62 39 35 / 8%);
 }
 
 /* Screen reader only utility */
@@ -49,7 +49,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+ clip-path: inset(50%); 
   white-space: nowrap;
   border-width: 0;
 }

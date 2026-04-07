@@ -74,11 +74,10 @@
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .sidebar {
     width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
   }
 
   .card {
