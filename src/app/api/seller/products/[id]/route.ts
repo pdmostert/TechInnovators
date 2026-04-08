@@ -1,8 +1,9 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
-import { prisma } from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { writeFile } from "fs/promises";
+import { join } from "path";
 
 const productSchema = z.object({
   name: z.string().min(3).optional(),
@@ -13,6 +14,7 @@ const productSchema = z.object({
 });
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { prisma } = await import("@/app/lib/prisma");
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role !== "seller") {
@@ -22,8 +24,40 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   const { id } = await params;
 
   try {
-    const body = await req.json();
-    const parsed = productSchema.safeParse(body);
+    const contentType = req.headers.get("content-type");
+    let data: Record<string, any> = {};
+
+    // Handle FormData (file uploads)
+    if (contentType?.includes("multipart/form-data")) {
+      const formData = await req.formData();
+      
+      const name = formData.get("name") as string | null;
+      const description = formData.get("description") as string | null;
+      const price = formData.get("price") as string | null;
+      const categoryId = formData.get("categoryId") as string | null;
+      const file = formData.get("file") as File | null;
+
+      if (name) data.name = name;
+      if (description) data.description = description;
+      if (price) data.price = Number(price);
+      if (categoryId) data.categoryId = categoryId;
+
+      // Handle file upload
+      if (file && file.size > 0) {
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        const filename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+        const path = join(process.cwd(), "public", "uploads", filename);
+        
+        await writeFile(path, buffer);
+        data.imageUrl = `/uploads/${filename}`;
+      }
+    } else {
+      // Handle JSON body
+      data = await req.json();
+    }
+
+    const parsed = productSchema.safeParse(data);
 
     if (!parsed.success) {
       return NextResponse.json({ message: "Invalid input", errors: parsed.error.format() }, { status: 400 });
@@ -50,6 +84,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 }
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { prisma } = await import("@/app/lib/prisma");
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role !== "seller") {

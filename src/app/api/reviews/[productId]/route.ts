@@ -1,5 +1,5 @@
+export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/app/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authOptions";
 
@@ -8,6 +8,7 @@ export async function GET(
   { params }: { params: Promise<{ productId: string }> }
 ) {
   const { productId } = await params;
+  const { prisma } = await import("@/app/lib/prisma");
 
   const reviews = await prisma.review.findMany({
     where: { productId },
@@ -38,6 +39,7 @@ export async function POST(
     }
 
     const { productId } = await params;
+    const { prisma } = await import("@/app/lib/prisma");
     const body = await request.json();
     const { rating, body: comment, title } = body;
 

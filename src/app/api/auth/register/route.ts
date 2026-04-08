@@ -1,6 +1,6 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { prisma } from "@/app/lib/prisma";
 import { z } from "zod";
 
 const registerSchema = z.object({
@@ -11,6 +11,7 @@ const registerSchema = z.object({
 });
 
 export async function POST(req: Request) {
+  const { prisma } = await import("@/app/lib/prisma");
   try {
     const body = await req.json();
     const { name, email, password, role } = registerSchema.parse(body);
