@@ -19,7 +19,7 @@
   padding-bottom: 1.5rem;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .header {
     flex-direction: row;
     align-items: flex-end;
@@ -56,7 +56,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   transition: background-color 0.2s;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
 }
 
 .navBtnHome:hover {
@@ -72,7 +72,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   transition: all 0.2s;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
 }
 
 .navBtnProfile:hover {
@@ -86,7 +86,7 @@
   gap: 2rem;
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -100,7 +100,7 @@
   grid-column: span 1 / span 1;
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .colSpan2 {
     grid-column: span 2 / span 2;
   }
@@ -174,7 +174,7 @@
   background-color: var(--color-secondary-light);
   color: var(--color-text);
   text-transform: capitalize;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
 }
 
 .widgetArea {
@@ -201,7 +201,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
   transform: rotate(3deg);
 }
 
@@ -239,7 +239,7 @@
 
 .widgetBtn:hover {
   background-color: #b05e4c;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
   transform: translateY(-2px);
 }
 
@@ -322,7 +322,7 @@
   gap: 2rem;
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .mainContent {
     grid-template-columns: 2fr 1fr;
   }
@@ -434,12 +434,12 @@
   transition: all 0.2s;
 }
 
-.sideButton:hover:not(:disabled) {
-  background: var(--color-primary);
-  color: white;
-}
-
 .sideButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.sideButton:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: white;
 }

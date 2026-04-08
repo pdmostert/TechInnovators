@@ -219,11 +219,11 @@
 /* Error message */
 .error {
     color: #bf5a42;
-    font-size: 0.85;
+    font-size: 0.85rem;
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .content {
         flex-direction: column;
     }

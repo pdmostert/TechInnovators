@@ -89,16 +89,22 @@
   outline: none;
 }
 
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.select {
+  appearance: none;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
 .input:focus,
 .textarea:focus,
 .select:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-primary-light);
-}
-
-.textarea {
-  resize: vertical;
-  min-height: 100px;
 }
 
 /* ===== PRICE PREFIX INPUT ===== */
@@ -126,11 +132,6 @@
   position: relative;
 }
 
-.select {
-  appearance: none;
-  padding-right: 2.5rem;
-  cursor: pointer;
-}
 
 .selectChevron {
   position: absolute;
@@ -218,17 +219,17 @@
     transform 0.1s;
 }
 
+.saveBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .saveBtn:hover:not(:disabled) {
   background-color: #c0604d;
 }
 
 .saveBtn:active:not(:disabled) {
   transform: scale(0.98);
-}
-
-.saveBtn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
 }
 
 .saveBtn svg {

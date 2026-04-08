@@ -37,7 +37,7 @@
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .hero {
     padding: 2.5rem 1rem;
   }
