@@ -427,48 +427,122 @@
 .reviewForm {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  padding: 1rem;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+  padding: 2rem;
   border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background-color: var(--color-card-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.reviewForm h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  margin: 0;
 }
 
 .reviewForm label {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   font-size: 0.875rem;
+  font-weight: 600;
   color: var(--color-text);
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
 }
 
+.reviewForm input,
 .reviewForm textarea,
 .reviewForm select {
-  margin-top: 0.25rem;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
   background-color: #fff;
   color: var(--color-text);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.reviewForm input:hover,
+.reviewForm textarea:hover,
+.reviewForm select:hover {
+  border-color: #ddd;
+}
+
+.reviewForm input:focus,
+.reviewForm textarea:focus,
+.reviewForm select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(211, 96, 77, 0.1);
+}
+
+.reviewForm textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.reviewForm select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.reviewForm input::placeholder,
+.reviewForm textarea::placeholder {
+  color: var(--color-text-muted);
 }
 
 .reviewForm button {
   align-self: flex-start;
-  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
   background-color: var(--color-primary);
   color: #fff;
   font-weight: 600;
+  font-size: 0.9rem;
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color 0.15s, transform 0.1s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(211, 96, 77, 0.15);
 }
 
-.reviewForm button:hover {
+.reviewForm button:hover:not(:disabled) {
   background-color: #c0604d;
+  box-shadow: 0 4px 8px rgba(211, 96, 77, 0.25);
 }
 
-.reviewForm button:active {
+.reviewForm button:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+.reviewForm button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reviewFormError {
+  padding: 0.75rem 1rem;
+  background-color: #fee;
+  border: 1.5px solid #fcc;
+  border-radius: var(--radius-md);
+  color: #c33;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

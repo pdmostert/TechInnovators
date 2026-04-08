@@ -1,8 +1,5 @@
 import "dotenv/config";
-import { defineConfig } from "prisma/config";
+// Note: prisma/config is not available in Prisma v5
+// Configuration is handled in prisma/schema.prisma
 
-export default defineConfig({
-  datasource: {
-    url: process.env.DATABASE_URL,
-  },
-});
+export default {};

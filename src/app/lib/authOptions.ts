@@ -2,7 +2,6 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { prisma } from "./prisma";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -23,6 +22,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        const { prisma } = await import("./prisma");
         const parsed = loginSchema.safeParse(credentials);
         if (!parsed.success) return null;
 

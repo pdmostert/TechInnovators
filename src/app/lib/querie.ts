@@ -1,6 +1,11 @@
-import { prisma } from './prisma';
+
+async function getPrisma() {
+  const { prisma } = await import('./prisma');
+  return prisma;
+}
 
 export async function getProducts(filters?: { q?: string; category?: string; minPrice?: number; maxPrice?: number }) {
+  const prisma = await getPrisma();
   return prisma.product.findMany({
     where: {
       isActive: true,
@@ -14,6 +19,7 @@ export async function getProducts(filters?: { q?: string; category?: string; min
 }
 
 export async function getProductById(id: string) {
+  const prisma = await getPrisma();
   return prisma.product.findUnique({
     where: { id },
     include: { category: true, seller: { include: { sellerProfile: true } }, reviews: true },
@@ -21,6 +27,7 @@ export async function getProductById(id: string) {
 }
 
 export async function getBuyerStats(userId: string) {
+  const prisma = await getPrisma();
   const [user, reviewsCount] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
@@ -38,6 +45,7 @@ export async function getBuyerStats(userId: string) {
 }
 
 export async function getSellerStats(userId: string) {
+  const prisma = await getPrisma();
   const [user, productsCount] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },

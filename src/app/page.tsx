@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { priceRanges } from "@/app/lib/data";
-import { prisma } from "@/app/lib/prisma";
 import FilterSidebar from "@/app/ui/filters/FilterSidebar";
 import ProductGrid from "@/app/ui/product/ProductGrid";
 import styles from "./page.module.css";
@@ -8,6 +7,7 @@ import styles from "./page.module.css";
 type SearchParams = Promise<{ q?: string; category?: string; price?: string }>;
 
 export default async function Home({ searchParams }: { searchParams: SearchParams }) {
+  const { prisma } = await import("@/app/lib/prisma");
   const { q, category, price } = await searchParams; 
 
   const range = price && price !== "All Prices"

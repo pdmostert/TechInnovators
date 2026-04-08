@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import type { Category } from "@/app/lib/data";
 import styles from "./page.module.css";
 
@@ -29,24 +30,54 @@ export default function EditProductForm({ product, categories }: Props) {
     product.category,
   );
   const [description, setDescription] = useState(product.description);
-  const [imageUrl, setImageUrl] = useState(product.image);
   const [previewUrl, setPreviewUrl] = useState(product.image);
   const [saving, setSaving] = useState(false);
 
-  function handleImageUrlChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const val = e.target.value;
-    setImageUrl(val);
-    // Debounce-free live preview; real validation happens server-side on save
-    setPreviewUrl(val);
+  function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    // TODO: replace with real server action / API call once DB is wired up
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    setSaving(false);
-    router.push(`/product/${product.id}`);
+
+    try {
+      const form = e.target as HTMLFormElement;
+      const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
+      const file = fileInput?.files?.[0];
+
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("categoryId", product.category);
+      
+      if (file) {
+        formData.append("file", file);
+      }
+
+      const res = await fetch(`/api/seller/products/${product.id}`, {
+        method: "PATCH",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Failed to update product");
+      }
+
+      toast.success("Product updated successfully!");
+      router.push(`/product/${product.id}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "An error occurred";
+      toast.error(message);
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -140,20 +171,21 @@ export default function EditProductForm({ product, categories }: Props) {
         </p>
       </div>
 
-      {/* Image URL */}
+      {/* Product Image Upload */}
       <div className={styles.field}>
-        <label htmlFor="imageUrl" className={styles.label}>
-          Product Image URL
+        <label htmlFor="imageFile" className={styles.label}>
+          Product Image
         </label>
         <input
-          id="imageUrl"
-          type="url"
+          id="imageFile"
+          type="file"
+          accept="image/*"
           className={styles.input}
-          value={imageUrl}
-          onChange={handleImageUrlChange}
-          placeholder="https://..."
-          autoComplete="off"
+          onChange={handleImageUpload}
         />
+        <p className={styles.hint}>
+          Upload a new image to replace the current one. Supported formats: JPG, PNG, WebP
+        </p>
         {previewUrl && (
           <div className={styles.imagePreview}>
             <p className={styles.previewLabel}>Image Preview:</p>

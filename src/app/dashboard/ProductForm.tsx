@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from "react";
 import toast from "react-hot-toast";
+import styles from "./ProductForm.module.css";
 
 type Category = {
   id: string;
@@ -26,6 +27,7 @@ type ProductFormProps = {
 export default function ProductForm({ product, onSuccess, onCancel }: ProductFormProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string>(product?.imageUrl || "");
   const [formData, setFormData] = useState<Product>(product || {
     name: "",
     description: "",
@@ -53,6 +55,14 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
     fetchCategories();
   }, [product]);
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
+  };
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setIsSubmitting(true);
@@ -61,10 +71,22 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
     const url = product?.id ? `/api/seller/products/${product.id}` : "/api/seller/products";
 
     try {
+      const form = e.target as HTMLFormElement;
+      const fileInput = form.querySelector('input[type="file"]') as HTMLInputElement;
+      const file = fileInput?.files?.[0];
+
+      const body = new FormData();
+      body.append("name", formData.name);
+      body.append("description", formData.description);
+      body.append("price", String(formData.price));
+      body.append("categoryId", formData.categoryId);
+      if (file) {
+        body.append("file", file);
+      }
+
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, price: Number(formData.price) }),
+        body,
       });
 
       if (!res.ok) {
@@ -72,7 +94,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
         throw new Error(err.message || "Something went wrong");
       }
 
-      toast.success(product?.id ? "Product updated!" : "Product added!");
+      toast.success(product?.id ? "Product updated successfully!" : "Product published successfully!");
       onSuccess();
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "An unexpected error occurred.";
@@ -82,133 +104,148 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
     }
   }
 
-  const inputStyle = {
-    padding: "0.8rem",
-    borderRadius: "8px",
-    border: "1px solid var(--color-border)",
-    fontSize: "1rem",
-    outline: "none",
-    width: "100%",
-    fontFamily: "var(--font-body)",
-    transition: "all 0.2s"
-  };
-
-  const labelStyle = {
-    fontWeight: 600,
-    fontSize: "0.875rem",
-    color: "var(--color-text)",
-    marginBottom: "0.25rem",
-    display: "block"
-  };
-
   return (
-    <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1.25rem", padding: "1rem" }}>
-      <header style={{ marginBottom: "0.5rem" }}>
-        <h3 style={{ fontSize: "1.5rem", fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <header className={styles.formHeader}>
+        <h3 className={styles.formTitle}>
           {product?.id ? "Edit Product" : "Add New Artisan Product"}
         </h3>
-        <p style={{ fontSize: "0.9rem", color: "var(--color-text-muted)" }}>
-          Share your craft with the Handcrafted Haven community.
+        <p className={styles.formDescription}>
+          Share your craft with the Handcrafted Haven community. Fill in all required fields to get started.
         </p>
       </header>
 
-      <div style={{ display: "grid", gap: "1rem" }}>
-        <div>
-          <label style={labelStyle}>Product Name</label>
-          <input
-            type="text"
+      {/* Product Name */}
+      <div className={styles.field}>
+        <label className={styles.label}>
+          Product Name <span className={styles.required}>*</span>
+        </label>
+        <input
+          type="text"
+          required
+          className={styles.input}
+          placeholder="e.g. Hand-turned Oak Bowl"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        />
+      </div>
+
+      {/* Category & Price Row */}
+      <div className={styles.fieldGrid}>
+        <div className={styles.field}>
+          <label className={styles.label}>
+            Category <span className={styles.required}>*</span>
+          </label>
+          <select
             required
-            placeholder="e.g. Hand-turned Oak Bowl"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            style={inputStyle}
-          />
+            className={styles.select}
+            value={formData.categoryId}
+            onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+          >
+            <option value="">Select a category</option>
+            {categories.map(cat => (
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-          <div>
-            <label style={labelStyle}>Category</label>
-            <select
-              required
-              value={formData.categoryId}
-              onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-              style={inputStyle}
-            >
-              {categories.map(cat => (
-                <option key={cat.id} value={cat.id}>{cat.name}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label style={labelStyle}>Price ($)</label>
-            <input
-              type="number"
-              step="0.01"
-              required
-              min="0.01"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-              style={inputStyle}
-            />
-          </div>
-        </div>
-
-        <div>
-          <label style={labelStyle}>Image URL</label>
+        <div className={styles.field}>
+          <label className={styles.label}>
+            Price ($) <span className={styles.required}>*</span>
+          </label>
           <input
-            type="text"
+            type="number"
+            step="0.01"
             required
-            placeholder="https://example.com/image.png"
-            value={formData.imageUrl}
-            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-            style={inputStyle}
+            min="0.01"
+            className={styles.input}
+            placeholder="0.00"
+            value={formData.price || ""}
+            onChange={(e) => setFormData({ ...formData, price: e.target.value ? Number(e.target.value) : 0 })}
           />
-        </div>
-
-        <div>
-           <label style={labelStyle}>Description</label>
-           <textarea
-             required
-             rows={4}
-             placeholder="Tell the story of your handcrafted item..."
-             value={formData.description}
-             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-             style={{ ...inputStyle, resize: "none" }}
-           />
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+      {/* Product Image Upload */}
+      <div className={styles.field}>
+        <label className={styles.label}>
+          Product Image
+        </label>
+        <div className={styles.fileInputWrapper}>
+          <label className={styles.fileInputLabel}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20}>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <span>Click to upload or drag and drop</span>
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            className={styles.fileInputHidden}
+            onChange={handleImageUpload}
+          />
+        </div>
+        <p className={styles.hint}>
+          PNG, JPG, WebP up to 10MB. Recommended size: 1000x750px
+        </p>
+
+        {previewUrl && (
+          <div className={styles.imagePreview}>
+            <p className={styles.previewLabel}>Image Preview</p>
+            <div className={styles.previewContainer}>
+              <img 
+                src={previewUrl} 
+                alt="Preview" 
+                className={styles.previewImage}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Description */}
+      <div className={styles.field}>
+        <label className={styles.label}>
+          Description <span className={styles.required}>*</span>
+        </label>
+        <textarea
+          required
+          className={styles.textarea}
+          placeholder="Tell the story of your handcrafted item. Include materials, dimensions, care instructions, and what makes it special..."
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+        />
+        <p className={styles.hint}>
+          Minimum 50 characters recommended for better product visibility
+        </p>
+      </div>
+
+      {/* Form Actions */}
+      <div className={styles.formActions}>
         <button
           type="button"
+          className={styles.cancelBtn}
           onClick={onCancel}
-          style={{
-            flex: 1,
-            padding: "0.75rem",
-            borderRadius: "8px",
-            border: "1px solid var(--color-border)",
-            background: "white",
-            fontWeight: 600,
-            cursor: "pointer"
-          }}
         >
           Cancel
         </button>
         <button
           type="submit"
+          className={styles.submitBtn}
           disabled={isSubmitting}
-          style={{
-            flex: 1,
-            padding: "0.75rem",
-            borderRadius: "8px",
-            border: "none",
-            background: "var(--color-primary)",
-            color: "white",
-            fontWeight: 600,
-            cursor: isSubmitting ? "not-allowed" : "pointer",
-            opacity: isSubmitting ? 0.7 : 1
-          }}
         >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+            <polyline points="17 21 17 13 7 13 7 21" />
+            <polyline points="7 3 7 8 15 8" />
+          </svg>
           {isSubmitting ? "Saving..." : (product?.id ? "Update Product" : "Publish Product")}
         </button>
       </div>
