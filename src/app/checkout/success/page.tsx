@@ -4,10 +4,38 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import styles from "./success.module.css";
+import { useEffect } from "react";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId") || "ORD-UNKNOWN";
+  const itemsParam = searchParams.get("items");
+  const items = itemsParam ? JSON.parse(decodeURIComponent(itemsParam)) : [];
+
+  useEffect(() => {
+  if (!orderId) return;
+
+  const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+
+  // Avoid duplicates
+  const alreadyExists = existingOrders.find((o: any) => o.orderId === orderId);
+
+  if (!alreadyExists) {
+  const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
+
+  const newOrder = {
+    orderId,
+    date: new Date().toISOString(),
+    items: items, // now real items 
+  };
+
+  localStorage.setItem("orders", JSON.stringify([newOrder, ...existingOrders]));
+
+  // Clear cart after successful order
+  localStorage.removeItem("cart");
+}
+
+}, [orderId]);
 
   return (
     <div className={styles.card}>

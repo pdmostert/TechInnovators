@@ -48,51 +48,62 @@ export default function CheckoutPage() {
     }
   };
 
-  const submitOrder = async () => {
-    // 1. Client-Side Validation
-    const validation = checkoutSchema.safeParse(form);
+const submitOrder = async () => {
+  // 1. Client-Side Validation
+  const validation = checkoutSchema.safeParse(form);
 
-    if (!validation.success) {
-      const fieldErrors: Partial<Record<keyof CheckoutFormData, string>> = {};
-      validation.error.issues.forEach((issue) => {
-        const path = issue.path[0] as keyof CheckoutFormData;
-        if (path) fieldErrors[path] = issue.message;
-      });
-      setErrors(fieldErrors);
-      toast.error("Please fix the errors before placing order.");
+  if (!validation.success) {
+    const fieldErrors: Partial<Record<keyof CheckoutFormData, string>> = {};
+    validation.error.issues.forEach((issue) => {
+      const path = issue.path[0] as keyof CheckoutFormData;
+      if (path) fieldErrors[path] = issue.message;
+    });
+    setErrors(fieldErrors);
+    toast.error("Please fix the errors before placing order.");
+    return;
+  }
+
+  setIsSubmitting(true);
+  const loadingToast = toast.loading("Processing your order securely...");
+
+  try {
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      toast.error(data.message || "Failed to process order. Please try again.", { id: loadingToast });
+      if (data.errors) {
+        setErrors(data.errors);
+      }
       return;
     }
 
-    setIsSubmitting(true);
-    const loadingToast = toast.loading("Processing your order securely...");
+    // Save order with items to localStorage before clearing cart
+    const newOrder = {
+      orderId: data.orderId,
+      date: new Date().toISOString(),
+      items: cartItems,
+    };
 
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+    const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+    localStorage.setItem("orders", JSON.stringify([newOrder, ...existingOrders]));
 
-      const data = await response.json();
+    toast.success("Order confirmed! Thank you for your purchase.", { id: loadingToast });
 
-      if (!response.ok) {
-        toast.error(data.message || "Failed to process order. Please try again.", { id: loadingToast });
-        if (data.errors) {
-          setErrors(data.errors);
-        }
-        return;
-      }
-
-      toast.success("Order confirmed! Thank you for your purchase.", { id: loadingToast });
-      clearCart();
-      router.push(`/checkout/success?orderId=${data.orderId}`);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "A network error occurred. Please check your connection.";
-      toast.error(message, { id: loadingToast });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    clearCart(); // now we clear cart after saving order
+    router.push(`/checkout/success?orderId=${data.orderId}`);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "A network error occurred. Please check your connection.";
+    toast.error(message, { id: loadingToast });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   if (cartItems.length === 0) {
     return (
