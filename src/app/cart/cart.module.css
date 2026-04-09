@@ -180,3 +180,22 @@
 .continueButton:active {
     transform: scale(0.98);
 }
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 640px) {
+
+    .checkoutButton,
+    .continueButton {
+        width: 100%;
+        float: none;
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    .buttonContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
