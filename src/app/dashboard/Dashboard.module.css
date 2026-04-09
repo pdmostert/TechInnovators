@@ -507,3 +507,60 @@
   background: var(--color-primary);
   color: white;
 }
+.sideButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mobile view */
+@media (max-width: 640px) {
+  .statsGrid {
+    padding: 0 0.5rem;
+  }
+
+  .statCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    overflow: visible;
+  }
+
+  .statCard .statIcon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .statProduct {
+    width: 100%;
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+
+  .statProduct .statValue {
+    white-space: normal;
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  .statOrder {
+    width: 100%;
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .imageStack img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .moreItems {
+    width: 35px;
+    height: 35px;
+    font-size: 0.7rem;
+  }
+}
