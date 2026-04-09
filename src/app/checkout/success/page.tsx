@@ -10,7 +10,7 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId") || "ORD-UNKNOWN";
   const itemsParam = searchParams.get("items");
-  const items = itemsParam ? JSON.parse(decodeURIComponent(itemsParam)) : [];
+  const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
 
   useEffect(() => {
   if (!orderId) return;
@@ -26,7 +26,7 @@ function SuccessContent() {
   const newOrder = {
     orderId,
     date: new Date().toISOString(),
-    items: items, // now real items 
+    items: cartItems, // now real items 
   };
 
   localStorage.setItem("orders", JSON.stringify([newOrder, ...existingOrders]));

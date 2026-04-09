@@ -98,38 +98,47 @@ export default function BuyerView({ stats, userName }: BuyerViewProps) {
           ) : (
             <div>
               {orders.map((order) => (
-                <div key={order.orderId} className={styles.statCard}>
-                  {/* Left: Image */}
-                  <div className={styles.statIcon}>
-                    {order.items && order.items.length > 0 ? (
-                      <img
-                        src={order.items[0].image}
-                        alt={order.items[0].name}
-                        width={50}
-                        height={50}
-                        style={{ objectFit: "cover", borderRadius: "6px" }}
-                      />
-                    ) : (
-                      "📦"
-                    )}
-                  </div>
-
-                  {/* Center: Product Name */}
-                  <div className={styles.statProduct}>
-                    {order.items && order.items.length > 0 && (
-                      <>
-                        <p className={styles.statLabel}>Product</p>
-                        <p className={styles.statValue}>{order.items[0].name}</p>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Right: Order Number */}
-                  <div className={styles.statOrder}>
-                    <p className={styles.statLabel}>Order Number</p>
-                    <p className={styles.statValue}>{order.orderId}</p>
-                  </div>
+              <div key={order.orderId} className={styles.statCard}>
+                {/* Left: Images */}
+                <div className={styles.statIcon}>
+                  {order.items && order.items.length > 0 ? (
+                    <div className={styles.imageStack}>
+                      {order.items.slice(0, 3).map((item) => (
+                        <img
+                          key={item.id}
+                          src={item.image}
+                          alt={item.name}
+                        />
+                      ))}
+                      {order.items.length > 3 && (
+                        <span className={styles.moreItems}>
+                          +{order.items.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    "📦"
+                  )}
                 </div>
+
+                {/* Middle: Product Name */}
+                <div className={styles.statProduct}>
+                    {order.items && order.items.length > 0 && (
+                    <>
+                      <p className={styles.statLabel}>Product</p>
+                      <p className={styles.statValue}>
+                        {order.items[0].name}
+                        {order.items.length > 1 && ` +${order.items.length - 1} more`}
+                      </p>
+                    </>
+                  )}
+                </div>
+                {/* Right: Order Number */}
+                <div className={styles.statOrder}>
+                  <p className={styles.statLabel}>Order Number</p>
+                  <p className={styles.statValue}>{order.orderId}</p>
+                </div>
+              </div>
               ))}
             </div>
           )}
